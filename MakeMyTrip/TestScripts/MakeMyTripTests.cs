@@ -14,10 +14,15 @@ namespace MakeMyTrip.TestScripts
         public void HomePageTest()
         {
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-            //Thread.Sleep(2000);
-            makeMyTripHomePage.ClickAdsPopup();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             makeMyTripHomePage.ClickSignInPopup();
+            makeMyTripHomePage.ClickAdsPopup();
+            Thread.Sleep(5000);
+            makeMyTripHomePage.ClickLogoCheck();
+            Assert.That(driver.Url.Contains("makemytrip"));
+
+            Thread.Sleep(5000);
+            makeMyTripHomePage.ClickFlightOption();
             
 
         }

@@ -24,6 +24,12 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.ClassName, Using = ("commonModal__close"))]
         private IWebElement? SignInPopup { get; }
 
+        [FindsBy(How = How.XPath, Using = ("//a[@class='mmtLogo makeFlex']"))]
+        private IWebElement? LogoCheck { get; }
+
+        [FindsBy(How = How.ClassName, Using = ("menu_Flights"))]
+        private IWebElement? FlightOption { get; }
+
         //Act
         public void ClickAdsPopup()
         {
@@ -32,6 +38,16 @@ namespace MakeMyTrip.PageObjects
         public void ClickSignInPopup()
         {
             SignInPopup?.Click();
+        }
+
+        public void ClickLogoCheck()
+        {
+            LogoCheck?.Click();
+        }
+
+        public void ClickFlightOption()
+        {
+            FlightOption?.Click();
         }
     }
 }
