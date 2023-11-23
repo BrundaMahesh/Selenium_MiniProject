@@ -11,7 +11,7 @@ namespace MakeMyTrip
     public class CoreCodes
     {
         Dictionary<string, string>? properties;
-        public IWebDriver driver;
+        public IWebDriver? driver;
         public void ReadConfigSettings()
         {
             string currentDirectory = Directory.GetParent(@"../../../").FullName;
@@ -81,6 +81,12 @@ namespace MakeMyTrip
             screenshot.SaveAsFile(filename);
             Console.WriteLine("Takes screenshot");
 
+        }
+
+        public static void ScrollIntoView(IWebDriver driver, IWebElement element)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
         }
     }
 }
