@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace MakeMyTrip
             }
             else if (properties["browser"].ToLower() == "edge")
             {
-                driver = new ChromeDriver();
+                driver = new EdgeDriver();
             }
             driver.Url = properties["baseUrl"];
             driver.Manage().Window.Maximize();

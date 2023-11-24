@@ -18,23 +18,23 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
-        [FindsBy(How =How.XPath,Using =("//*[@id=\"webklipper-publisher-widget-container-notification-close-div\"]/i"))]
-        private IWebElement? AdsPopup { get; set; }
+        //[FindsBy(How =How.XPath,Using =("//i[@class='wewidgeticon we_close']"))]
+        //private IWebElement? AdsPopup { get; set; }
 
-        [FindsBy(How = How.ClassName, Using = ("commonModal__close"))]
+        [FindsBy(How = How.XPath, Using = ("//span[@class='commonModal__close']"))]
         private IWebElement? SignInPopup { get; }
 
-        [FindsBy(How = How.XPath, Using = ("//a[@class='mmtLogo makeFlex']"))]
+       [FindsBy(How = How.XPath, Using = ("//a[@class='mmtLogo makeFlex']"))]
         private IWebElement? LogoCheck { get; }
 
         [FindsBy(How = How.ClassName, Using = ("menu_Flights"))]
         private IWebElement? FlightOption { get; }
 
         //Act
-        public void ClickAdsPopup()
-        {
-            AdsPopup?.Click();
-        }
+       //public void ClickAdsPopup()
+       // {
+       //     AdsPopup?.Click();
+       // }
         public void ClickSignInPopup()
         {
             SignInPopup?.Click();
@@ -45,9 +45,10 @@ namespace MakeMyTrip.PageObjects
             LogoCheck?.Click();
         }
 
-        public void ClickFlightOption()
+        public MakeMyTripHomePage ClickFlightOption()
         {
             FlightOption?.Click();
+            return new MakeMyTripHomePage(driver);
         }
     }
 }
