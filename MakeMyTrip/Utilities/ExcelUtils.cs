@@ -35,8 +35,8 @@ namespace MakeMyTrip.Utilities
                         {
                             ExcelData excelData = new ExcelData
                             {
-                                SearchText = GetValueOrDefault(row, "searchtext"),
-                                QtyIncrease = GetValueOrDefault(row,"qtyincrease")
+                                FromInput = GetValueOrDefault(row, "frominput"),
+                                ToInput = GetValueOrDefault(row,"toinput")
                             };
 
                             excelDataList.Add(excelData);

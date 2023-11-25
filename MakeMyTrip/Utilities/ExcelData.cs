@@ -8,7 +8,7 @@ namespace MakeMyTrip.Utilities
 {
     internal class ExcelData
     {
-        public string? SearchText {  get; set; }
-        public string? QtyIncrease { get; set; }
+        public string? FromInput {  get; set; }
+        public string? ToInput { get; set; }
     }
 }

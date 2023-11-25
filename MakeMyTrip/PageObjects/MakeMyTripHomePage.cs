@@ -18,8 +18,6 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
-        
-
         [FindsBy(How = How.XPath, Using = ("//span[@class='commonModal__close']"))]
         private IWebElement? SignInPopup { get; }
 
@@ -28,6 +26,19 @@ namespace MakeMyTrip.PageObjects
 
         [FindsBy(How = How.ClassName, Using = ("menu_Flights"))]
         private IWebElement? FlightOption { get; }
+
+        [FindsBy(How = How.Id, Using = ("fromCity"))]
+        private IWebElement? FromInput { get; set; }
+
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"toCity\"]"))]
+        private IWebElement? ToInput { get; set; }
+
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]"))]
+        private IWebElement? Travellers { get; set; }
+
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[2]/button"))]
+        private IWebElement? ApplyButton { get; set; }
+
 
         //Act
         public void ClickSignInPopup()
@@ -44,6 +55,26 @@ namespace MakeMyTrip.PageObjects
         {
             FlightOption?.Click();
             return new MakeMyTripHomePage(driver);
+        }
+
+        public void ClickFromInput(string fromLoc)
+        { 
+            FromInput?.SendKeys(fromLoc);
+            FromInput?.SendKeys(Keys.Enter);   
+        }
+
+        public void ClickToInput(string toLoc)
+        {
+            ToInput?.SendKeys(toLoc);
+            ToInput?.SendKeys(Keys.Enter);
+        }
+        public void ClickTravellers()
+        {
+            Travellers?.Click();
+        }
+        public void ClickApplyButton()
+        {
+            ApplyButton?.Click();
         }
     }
 }

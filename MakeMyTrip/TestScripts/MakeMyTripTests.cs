@@ -1,4 +1,5 @@
 ﻿using MakeMyTrip.PageObjects;
+using MakeMyTrip.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +15,36 @@ namespace MakeMyTrip.TestScripts
         public void HomePageTest()
         {
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-            // Thread.Sleep(5000);
             makeMyTripHomePage.ClickSignInPopup();
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
           
             makeMyTripHomePage.ClickLogoCheck();
             Assert.That(driver.Url.Contains("makemytrip"));
 
            // Thread.Sleep(5000);
-           makeMyTripHomePage.ClickFlightOption();
-           
+            makeMyTripHomePage.ClickFlightOption();
+            string? currDir = Directory.GetParent(@"../../../")?.FullName;
+            string? excelFilePath = currDir + "/TestData/InputData.xlsx";
+            string? sheetName = "SearchFlight";
+
+            List<ExcelData> excelDataList = ExcelUtils.ReadExcelData(excelFilePath, sheetName);
+
+            foreach (var excelData in excelDataList)
+            {
+
+                string? fromInput = excelData?.FromInput;
+                Console.WriteLine($"From Input: {fromInput}");
+                makeMyTripHomePage.ClickFromInput(excelData.FromInput);
+
+                string? toInput = excelData?.ToInput;
+                Console.WriteLine($"To Input: {toInput}");
+                makeMyTripHomePage.ClickFromInput(excelData.ToInput);
+                
+                //makeMyTripHomePage.ClickTravellers();
+                //makeMyTripHomePage.ClickApplyButton();
+                Thread.Sleep(6000);
+            }
+
         }
     }
 }
