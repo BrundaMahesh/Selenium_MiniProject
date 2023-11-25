@@ -18,8 +18,7 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
-        //[FindsBy(How =How.XPath,Using =("//i[@class='wewidgeticon we_close']"))]
-        //private IWebElement? AdsPopup { get; set; }
+        
 
         [FindsBy(How = How.XPath, Using = ("//span[@class='commonModal__close']"))]
         private IWebElement? SignInPopup { get; }
@@ -31,10 +30,6 @@ namespace MakeMyTrip.PageObjects
         private IWebElement? FlightOption { get; }
 
         //Act
-       //public void ClickAdsPopup()
-       // {
-       //     AdsPopup?.Click();
-       // }
         public void ClickSignInPopup()
         {
             SignInPopup?.Click();

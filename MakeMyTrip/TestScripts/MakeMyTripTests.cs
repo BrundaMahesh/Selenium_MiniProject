@@ -17,9 +17,7 @@ namespace MakeMyTrip.TestScripts
             // Thread.Sleep(5000);
             makeMyTripHomePage.ClickSignInPopup();
             Thread.Sleep(2000);
-            //makeMyTripHomePage.ClickAdsPopup();
-             
-           // Thread.Sleep(5000);
+          
             makeMyTripHomePage.ClickLogoCheck();
             Assert.That(driver.Url.Contains("makemytrip"));
 
