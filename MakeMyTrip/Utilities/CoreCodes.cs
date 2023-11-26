@@ -1,17 +1,17 @@
-﻿using AventStack.ExtentReports;
-using AventStack.ExtentReports.Reporter;
-using OpenQA.Selenium;
+﻿using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MakeMyTrip
+namespace MakeMyTrip.Utilities
 {
-    public class CoreCodes
+    internal class CoreCodes
     {
         Dictionary<string, string>? properties;
         public IWebDriver? driver;
