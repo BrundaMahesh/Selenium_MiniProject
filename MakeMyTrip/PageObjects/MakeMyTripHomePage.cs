@@ -33,12 +33,14 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"toCity\"]"))]
         private IWebElement? ToInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]"))]
+        [FindsBy(How = How.XPath, Using = ("/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/label"))]
         private IWebElement? Travellers { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[2]/button"))]
         private IWebElement? ApplyButton { get; set; }
 
+        [FindsBy(How = How.XPath, Using = ("//a[text()='Search']"))]
+        private IWebElement? SearchButton { get; set; }
 
         //Act
         public void ClickSignInPopup()
@@ -75,6 +77,11 @@ namespace MakeMyTrip.PageObjects
         public void ClickApplyButton()
         {
             ApplyButton?.Click();
+        }
+
+        public void ClickSearchButton()
+        {
+            SearchButton?.Click();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using MakeMyTrip.PageObjects;
 using MakeMyTrip.Utilities;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,9 +42,10 @@ namespace MakeMyTrip.TestScripts
                 Console.WriteLine($"To Input: {toInput}");
                 makeMyTripHomePage.ClickFromInput(excelData.ToInput);
                 
-                //makeMyTripHomePage.ClickTravellers();
+               // makeMyTripHomePage.ClickTravellers();
                 //makeMyTripHomePage.ClickApplyButton();
-                Thread.Sleep(6000);
+               // makeMyTripHomePage.ClickSearchButton();
+                Thread.Sleep(3000);
             }
 
         }
