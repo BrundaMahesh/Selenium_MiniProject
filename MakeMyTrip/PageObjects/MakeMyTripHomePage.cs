@@ -24,7 +24,7 @@ namespace MakeMyTrip.PageObjects
        [FindsBy(How = How.XPath, Using = ("//a[@class='mmtLogo makeFlex']"))]
         private IWebElement? LogoCheck { get; }
 
-        [FindsBy(How = How.ClassName, Using = ("menu_Flights"))]
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"SW\"]/div[1]/div[2]/div/div/nav/ul/li[1]/span/a"))]
         private IWebElement? FlightOption { get; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[1]/ul/li[1]"))]
@@ -36,16 +36,19 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"toCity\"]"))]
         private IWebElement? ToInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("//*[@id=\"departure\"]"))]
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[3]/label"))]
         private IWebElement? Departure { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/label"))]
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"travellers\"]"))]
         private IWebElement? Travellers { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[2]/button"))]
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[1]/div"))]
+        private IWebElement? TravelClass { get; set; }
+
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[2]"))]
         private IWebElement? ApplyButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("//a[text()='Search']"))]
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/p/a"))]
         private IWebElement? SearchButton { get; set; }
 
         //Act
@@ -79,13 +82,22 @@ namespace MakeMyTrip.PageObjects
             ToInput?.SendKeys(toLoc);
             ToInput?.SendKeys(Keys.Enter);
         }
-        public void ClickDeparture()
+        public void ClickDeparture(string date)
         {
-            Departure?.Click();
+            Departure?.SendKeys(date);
+            Departure?.SendKeys(Keys.Enter);
         }
-        public void ClickTravellers()
+        public void ClickTravellers(string adult, string travelClass)
         {
-            Travellers?.Click();
+            Travellers?.SendKeys(adult);
+            Travellers?.SendKeys(Keys.Enter);
+            Travellers?.SendKeys(travelClass);
+           
+        }
+        public void ClickTravelClass(string travelClass)
+        {
+            TravelClass?.SendKeys(travelClass);
+            TravelClass?.SendKeys(Keys.Enter);
         }
         public void ClickApplyButton()
         {

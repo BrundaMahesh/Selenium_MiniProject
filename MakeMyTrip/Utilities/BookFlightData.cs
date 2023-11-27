@@ -10,5 +10,8 @@ namespace MakeMyTrip.Utilities
     {
         public string? FromInput {  get; set; }
         public string? ToInput { get; set; }
+        public string? Date { get; set; }
+        public string? Adult { get; set; }
+        public string? TravelClass { get; set; }
     }
 }

@@ -36,7 +36,10 @@ namespace MakeMyTrip.Utilities
                             BookFlightData excelData = new BookFlightData
                             {
                                 FromInput = GetValueOrDefault(row, "frominput"),
-                                ToInput = GetValueOrDefault(row,"toinput")
+                                ToInput = GetValueOrDefault(row,"toinput"),
+                                Date = GetValueOrDefault(row,"date"),
+                                Adult = GetValueOrDefault(row,"adult"),
+                                TravelClass = GetValueOrDefault(row,"travelclass")
                             };
 
                             excelDataList.Add(excelData);

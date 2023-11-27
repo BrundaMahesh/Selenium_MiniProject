@@ -27,13 +27,22 @@ namespace MakeMyTrip.TestScripts
 
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
             makeMyTripHomePage.ClickSignInPopup();
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
+   
           
             makeMyTripHomePage.ClickLogoCheck();
             Assert.That(driver.Url.Contains("makemytrip"));
- 
-            makeMyTripHomePage.ClickFlightOption();
-            makeMyTripHomePage.ClickOneWayRadioButton();
+
+            var homePage = new MakeMyTripHomePage(driver);
+            if (!driver.Url.Contains("https://www.makemytrip.com/"))
+            {
+                driver.Navigate().GoToUrl("https://www.makemytrip.com/");
+            }
+            var searchFlightPage = homePage.ClickFlightOption();
+            
+            
+            searchFlightPage.ClickOneWayRadioButton();
+         
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string? excelFilePath = currDir + "/TestData/InputData.xlsx";
             string? sheetName = "SearchFlight";
@@ -45,18 +54,32 @@ namespace MakeMyTrip.TestScripts
 
                 string? fromInput = excelData?.FromInput;
                 Console.WriteLine($"From Input: {fromInput}");
-                makeMyTripHomePage.ClickFromInput(excelData.FromInput);
+                searchFlightPage.ClickFromInput(excelData.FromInput);
 
                 string? toInput = excelData?.ToInput;
                 Console.WriteLine($"To Input: {toInput}");
-                makeMyTripHomePage.ClickFromInput(excelData.ToInput);
+                searchFlightPage.ClickToInput(excelData.ToInput);
 
-                makeMyTripHomePage.ClickDeparture();
-                
-               //makeMyTripHomePage.ClickTravellers();
-               //makeMyTripHomePage.ClickApplyButton();
-               // makeMyTripHomePage.ClickSearchButton();
+                string? date = excelData?.Date;
+                Console.WriteLine($"Date: {date}");
+                searchFlightPage.ClickDeparture(excelData.Date);
+
+                string? adult = excelData?.Adult;
+                Console.WriteLine($"Adult: {adult}");
+                string? travelclass = excelData?.TravelClass;
+                Console.WriteLine($"Travel class: {travelclass}");
+                searchFlightPage.ClickTravellers(excelData.Adult,excelData.TravelClass);
+                Thread.Sleep(5000);
+
+
+                //string? travelclass = excelData?.TravelClass;
+                //Console.WriteLine($"Travel class: {travelclass}");
+                //searchFlightPage.ClickTravelClass(excelData.TravelClass);
+
+                searchFlightPage.ClickApplyButton();
                 Thread.Sleep(3000);
+                //searchFlightPage.ClickSearchButton();
+                //Thread.Sleep(3000);
             }
 
         }
