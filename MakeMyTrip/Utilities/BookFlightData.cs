@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MakeMyTrip.Utilities
 {
-    internal class ExcelData
+    internal class BookFlightData
     {
         public string? FromInput {  get; set; }
         public string? ToInput { get; set; }

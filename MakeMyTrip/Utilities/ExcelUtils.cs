@@ -10,9 +10,9 @@ namespace MakeMyTrip.Utilities
 {
     internal class ExcelUtils
     {
-        public static List<ExcelData> ReadExcelData(string excelFilePath, string sheetName)
+        public static List<BookFlightData> ReadExcelData(string excelFilePath, string sheetName)
         {
-            List<ExcelData> excelDataList = new List<ExcelData>();
+            List<BookFlightData> excelDataList = new List<BookFlightData>();
             Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
             using (var stream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -33,7 +33,7 @@ namespace MakeMyTrip.Utilities
                     {
                         foreach (DataRow row in dataTable.Rows)
                         {
-                            ExcelData excelData = new ExcelData
+                            BookFlightData excelData = new BookFlightData
                             {
                                 FromInput = GetValueOrDefault(row, "frominput"),
                                 ToInput = GetValueOrDefault(row,"toinput")

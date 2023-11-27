@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MakeMyTrip.Utilities
 {
     internal class CoreCodes
@@ -103,5 +104,23 @@ namespace MakeMyTrip.Utilities
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
         }
+
+        //protected void LogTestResult(string testName, string result, string errorMessage = null)
+        //{
+        //    Log.Information(result);
+
+        //    test = extent.CreateTest(testName);
+
+        //    if (errorMessage == null)
+        //    {
+        //        test.Pass(result);
+        //    }
+        //    else
+        //    {
+        //        Log.Error($"Test failed for {testName}. \n Exception: \n {errorMessage}");
+        //        test.Fail(result);
+        //    }
+        //}
+
     }
 }

@@ -27,11 +27,17 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.ClassName, Using = ("menu_Flights"))]
         private IWebElement? FlightOption { get; }
 
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[1]/ul/li[1]"))]
+        private IWebElement? OneWayRadioButton { get; }
+
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"fromCity\"]"))]
         private IWebElement? FromInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"toCity\"]"))]
         private IWebElement? ToInput { get; set; }
+
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"departure\"]"))]
+        private IWebElement? Departure { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/label"))]
         private IWebElement? Travellers { get; set; }
@@ -52,11 +58,14 @@ namespace MakeMyTrip.PageObjects
         {
             LogoCheck?.Click();
         }
-
         public MakeMyTripHomePage ClickFlightOption()
         {
             FlightOption?.Click();
             return new MakeMyTripHomePage(driver);
+        }
+        public void ClickOneWayRadioButton()
+        {
+            OneWayRadioButton?.Click();
         }
 
         public void ClickFromInput(string fromLoc)
@@ -69,6 +78,10 @@ namespace MakeMyTrip.PageObjects
         {
             ToInput?.SendKeys(toLoc);
             ToInput?.SendKeys(Keys.Enter);
+        }
+        public void ClickDeparture()
+        {
+            Departure?.Click();
         }
         public void ClickTravellers()
         {
