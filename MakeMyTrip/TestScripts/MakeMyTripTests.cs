@@ -13,6 +13,8 @@ namespace MakeMyTrip.TestScripts
     [TestFixture]
     internal class MakeMyTripTests:CoreCodes
     {
+        List<ExcelData> excelDataList;
+
         [Test]
         public void HomePageTest()
         {
@@ -29,7 +31,7 @@ namespace MakeMyTrip.TestScripts
             string? excelFilePath = currDir + "/TestData/InputData.xlsx";
             string? sheetName = "SearchFlight";
 
-            List<ExcelData> excelDataList = ExcelUtils.ReadExcelData(excelFilePath, sheetName);
+            excelDataList = ExcelUtils.ReadExcelData(excelFilePath, sheetName);
 
             foreach (var excelData in excelDataList)
             {
