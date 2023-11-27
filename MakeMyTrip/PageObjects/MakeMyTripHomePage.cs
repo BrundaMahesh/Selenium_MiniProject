@@ -18,7 +18,7 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
-        [FindsBy(How = How.XPath, Using = ("//span[@class='commonModal__close']"))]
+        [FindsBy(How = How.XPath, Using = ("//div[@class='headerOuter']"))]
         private IWebElement? SignInPopup { get; }
 
        [FindsBy(How = How.XPath, Using = ("//a[@class='mmtLogo makeFlex']"))]
@@ -27,7 +27,7 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.ClassName, Using = ("menu_Flights"))]
         private IWebElement? FlightOption { get; }
 
-        [FindsBy(How = How.Id, Using = ("fromCity"))]
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"fromCity\"]"))]
         private IWebElement? FromInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"toCity\"]"))]

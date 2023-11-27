@@ -17,8 +17,8 @@ namespace MakeMyTrip.TestScripts
         public void HomePageTest()
         {
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-            makeMyTripHomePage.ClickSignInPopup();
-            //Thread.Sleep(2000);
+           // makeMyTripHomePage.ClickSignInPopup();
+            Thread.Sleep(5000);
           
             makeMyTripHomePage.ClickLogoCheck();
             Assert.That(driver.Url.Contains("makemytrip"));
