@@ -38,6 +38,8 @@ namespace MakeMyTrip.Utilities
                                 FromInput = GetValueOrDefault(row, "frominput"),
                                 ToInput = GetValueOrDefault(row,"toinput"),
                                 Date = GetValueOrDefault(row,"date"),
+                                Month = GetValueOrDefault(row,"month"),
+                                Year = GetValueOrDefault(row,"year"),
                                 Adult = GetValueOrDefault(row,"adult"),
                                 TravelClass = GetValueOrDefault(row,"travelclass")
                             };

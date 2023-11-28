@@ -21,25 +21,31 @@ namespace MakeMyTrip.PageObjects
         
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[1]/ul/li[1]"))]
-        private IWebElement? OneWayRadioButton { get; }
+        public IWebElement? OneWayRadioButton { get; }
 
         [FindsBy(How = How.Id, Using = ("fromCity"))]
-        private IWebElement? FromInput { get; set; }
+        public IWebElement? FromInput { get; set; }
 
         [FindsBy(How = How.Id, Using = ("toCity"))]
-        private IWebElement? ToInput { get; set; }
+        public IWebElement? ToInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[3]/label"))]
-        private IWebElement? Departure { get; set; }
+        [FindsBy(How = How.XPath, Using = ("//input[@id='departure']//following::span[1]"))]
+        public IWebElement? Date { get; set; }
+
+        [FindsBy(How = How.XPath, Using = ("//input[@id='departure']//following::span[2]"))]
+        public IWebElement? Month { get; set; }
+
+        [FindsBy(How = How.XPath, Using = ("//input[@id='departure']//following::span[3]"))]
+        public IWebElement? Year { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"travellers\"]"))]
-        private IWebElement? Travellers { get; set; }
+        public IWebElement? Travellers { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[1]/div"))]
-        private IWebElement? TravelClass { get; set; }
+        public IWebElement? TravelClass { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[2]"))]
-        private IWebElement? ApplyButton { get; set; }
+        public IWebElement? ApplyButton { get; set; }
 
         //[FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[2]/div[1]"))]
         //private IWebElement? RegularFare { get; set; }
@@ -70,10 +76,20 @@ namespace MakeMyTrip.PageObjects
             ToInput?.SendKeys(toLoc);
             ToInput?.SendKeys(Keys.Enter);
         }
-        public void ClickDeparture(string date)
+        public void ClickDate(string date)
         {
-            Departure?.SendKeys(date);
-            Departure?.SendKeys(Keys.Enter);
+            Date?.SendKeys(date);
+            Date?.SendKeys(Keys.Enter);
+        }
+        public void ClickMonth(string month)
+        {
+            Month?.SendKeys(month);
+            Month?.SendKeys(Keys.Enter);
+        }
+        public void ClickYear(string year)
+        {
+           Year?.SendKeys(year);
+           Year?.SendKeys(Keys.Enter);
         }
         public void ClickTravellers(string adult, string travelClass)
         {

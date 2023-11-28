@@ -22,10 +22,10 @@ namespace MakeMyTrip.PageObjects
         private IWebElement? SignInPopup { get;  }
 
        [FindsBy(How = How.XPath, Using = ("//a[@class='mmtLogo makeFlex']"))]
-        private IWebElement? LogoCheck { get; set; }
+        public IWebElement? LogoCheck { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//li[@class='menu_Flights']"))]
-        private IWebElement? FlightOption { get; set; }
+        public IWebElement? FlightOption { get; set; }
 
         //Act
         public void ClickSignInPopup()

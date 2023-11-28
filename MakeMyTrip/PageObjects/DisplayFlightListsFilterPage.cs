@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MakeMyTrip.PageObjects
 {
-    internal class DisplayFlightListsPage
+    internal class DisplayFlightListsFilterPage
     {
         IWebDriver? driver;
-        public DisplayFlightListsPage(IWebDriver? driver)
+        public DisplayFlightListsFilterPage(IWebDriver? driver)
         {
             this.driver = driver ?? throw new ArgumentException(nameof(driver));
             PageFactory.InitElements(driver, this);

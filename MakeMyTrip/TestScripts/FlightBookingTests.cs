@@ -24,6 +24,14 @@ namespace MakeMyTrip.TestScripts
             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             fluentWait.Message = "Element not found";
 
+            /*IWebElement e = driver.FindElement(By.XPath("//input[@id='departure']//following::span[1]"));
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].innerText = '30';", e);
+
+            Console.WriteLine(driver.FindElement(By.XPath("//input[@id='departure']//following::span[1]")).Text);
+*/
+            // Verify the text change
 
             //MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
             //makeMyTripHomePage.ClickSignInPopup();
@@ -33,61 +41,72 @@ namespace MakeMyTrip.TestScripts
             //Assert.That(driver.Url.Contains("makemytrip"));
 
 
+            
+                var homePage = new MakeMyTripHomePage(driver);
+                        if (!driver.Url.Contains("https://www.makemytrip.com/"))
+                        {
+                            driver.Navigate().GoToUrl("https://www.makemytrip.com/");
+                        }
+                        var searchFlightPage=homePage.ClickFlightOption();
+                        Assert.That(driver.Url.Contains("flights"));
 
-            var homePage = new MakeMyTripHomePage(driver);
-            if (!driver.Url.Contains("https://www.makemytrip.com/"))
-            {
-                driver.Navigate().GoToUrl("https://www.makemytrip.com/");
-            }
-            var searchFlightPage=homePage.ClickFlightOption();
-            Assert.That(driver.Url.Contains("flights"));
 
+                        searchFlightPage.ClickOneWayRadioButton();
 
-            searchFlightPage.ClickOneWayRadioButton();
+                        string? currDir = Directory.GetParent(@"../../../")?.FullName;
+                        string? excelFilePath = currDir + "/TestData/InputData.xlsx";
+                        string? sheetName = "SearchFlight";
 
-            string? currDir = Directory.GetParent(@"../../../")?.FullName;
-            string? excelFilePath = currDir + "/TestData/InputData.xlsx";
-            string? sheetName = "SearchFlight";
+                        excelDataList = ExcelUtils.ReadExcelData(excelFilePath, sheetName);
 
-            excelDataList = ExcelUtils.ReadExcelData(excelFilePath, sheetName);
+                        foreach (var excelData in excelDataList)
+                        {
 
-            foreach (var excelData in excelDataList)
-            {
+                            string? fromInput = excelData?.FromInput;
+                            Console.WriteLine($"From Input: {fromInput}");
+                            searchFlightPage.ClickFromInput(excelData.FromInput);
 
-                string? fromInput = excelData?.FromInput;
-                Console.WriteLine($"From Input: {fromInput}");
-                searchFlightPage.ClickFromInput(excelData.FromInput);
+                            string? toInput = excelData?.ToInput;
+                            Console.WriteLine($"To Input: {toInput}");
+                            searchFlightPage.ClickToInput(excelData.ToInput);
 
-                string? toInput = excelData?.ToInput;
-                Console.WriteLine($"To Input: {toInput}");
-                searchFlightPage.ClickToInput(excelData.ToInput);
+                            string? date = excelData?.Date;
+                            Console.WriteLine($"Date: {date}");
+                            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                            js.ExecuteScript("arguments[0].innerText = " + excelData.Date  + " ;", searchFlightPage.Date);
 
-                string? date = excelData?.Date;
-                Console.WriteLine($"Date: {date}");
-                searchFlightPage.ClickDeparture(excelData.Date);
+                string? month = excelData?.Month;
+                Console.WriteLine($"Month: {month}");
+                js.ExecuteScript("arguments[0].innerText = " + excelData.Month + " ;", searchFlightPage.Month);
+                
+                string? year = excelData?.Year;
+                Console.WriteLine($"Year: {year}");
+                js.ExecuteScript("arguments[0].innerText = " + excelData.Year + " ;", searchFlightPage.Year);
+                //Console.WriteLine(driver.FindElement(By.XPath("//input[@id='departure']//following::span[1]")).Text);
+
                 Thread.Sleep(8000);
 
-                string? adult = excelData?.Adult;
-                Console.WriteLine($"Adult: {adult}");
-                string? travelclass = excelData?.TravelClass;
-                Console.WriteLine($"Travel class: {travelclass}");
-                searchFlightPage.ClickTravellers(excelData.Adult, excelData.TravelClass);
-                Thread.Sleep(5000);
-            }
+string? adult = excelData?.Adult;
+Console.WriteLine($"Adult: {adult}");
+string? travelclass = excelData?.TravelClass;
+Console.WriteLine($"Travel class: {travelclass}");
+searchFlightPage.ClickTravellers(excelData.Adult, excelData.TravelClass);
+Thread.Sleep(5000);
+}
 
-                //string? travelclass = excelData?.TravelClass;
-                //Console.WriteLine($"Travel class: {travelclass}");
-                //searchFlightPage.ClickTravelClass(excelData.TravelClass);
+//string? travelclass = excelData?.TravelClass;
+//Console.WriteLine($"Travel class: {travelclass}");
+//searchFlightPage.ClickTravelClass(excelData.TravelClass);
 
-                searchFlightPage.ClickApplyButton();
-                Thread.Sleep(3000);
+//  searchFlightPage.ClickApplyButton();
+// Thread.Sleep(3000);
 
-            //string? regularfare = excelData?.RegularFare;
-            //Console.WriteLine($"Regular fare: {regularfare}");
-            //searchFlightPage.ClickRegularFare(excelData.RegularFare);
+//string? regularfare = excelData?.RegularFare;
+//Console.WriteLine($"Regular fare: {regularfare}");
+//searchFlightPage.ClickRegularFare(excelData.RegularFare);
 
-            var displayFlightPage = searchFlightPage.ClickSearchButton();
+//  var displayFlightPage = searchFlightPage.ClickSearchButton();
 
-        }
-    }
+}
+}
 }
