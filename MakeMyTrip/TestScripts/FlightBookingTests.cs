@@ -24,31 +24,21 @@ namespace MakeMyTrip.TestScripts
             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             fluentWait.Message = "Element not found";
 
-            /*IWebElement e = driver.FindElement(By.XPath("//input[@id='departure']//following::span[1]"));
-
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("arguments[0].innerText = '30';", e);
-
-            Console.WriteLine(driver.FindElement(By.XPath("//input[@id='departure']//following::span[1]")).Text);
-*/
-
-
-            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-            makeMyTripHomePage.ClickSignInPopup();
+            //MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
+            //makeMyTripHomePage.ClickSignInPopup();
            // Thread.Sleep(5000);
 
             //makeMyTripHomePage.ClickLogoCheck();
             //Assert.That(driver.Url.Contains("makemytrip"));
 
 
-            var homePage = new MakeMyTripHomePage(driver);
+           var homePage = new MakeMyTripHomePage(driver);
            if (!driver.Url.Contains("https://www.makemytrip.com/"))
            {
                 driver.Navigate().GoToUrl("https://www.makemytrip.com/");
            }
            var searchFlightPage=homePage.ClickFlightOption();
            Assert.That(driver.Url.Contains("flights"));
-
 
            searchFlightPage.ClickOneWayRadioButton();
 
@@ -64,7 +54,6 @@ namespace MakeMyTrip.TestScripts
                 Console.WriteLine($"From Input: {fromInput}");
                 searchFlightPage.ClickFromInput(excelData.FromInput);
                 
-
                 string? toInput = excelData?.ToInput;
                 Console.WriteLine($"To Input: {toInput}");
                 searchFlightPage.ClickToInput(excelData.ToInput);
@@ -92,22 +81,21 @@ namespace MakeMyTrip.TestScripts
                 searchFlightPage.ClickTravellers(excelData.Adult, excelData.TravelClass);
                 Thread.Sleep(5000);
            }
-
-            //string? travelclass = excelData?.TravelClass;
-            //Console.WriteLine($"Travel class: {travelclass}");
-            //searchFlightPage.ClickTravelClass(excelData.TravelClass);
-
             searchFlightPage.ClickApplyButton();
             Thread.Sleep(3000);
 
-            //string? regularfare = excelData?.RegularFare;
-            //Console.WriteLine($"Regular fare: {regularfare}");
-            //searchFlightPage.ClickRegularFare(excelData.RegularFare);
+          
 
             var displayFlightListsFilterPage = searchFlightPage.ClickSearchButton();
 
             displayFlightListsFilterPage.ClickNonStopCheckBox();
+            displayFlightListsFilterPage.ClickIndigoCheckBox();
+            displayFlightListsFilterPage.ClickViewPricesButton();
 
+            List<string> nextwindow = driver.WindowHandles.ToList();
+            driver.SwitchTo().Window(nextwindow[1]);
+
+            var passengerDetailsPage = new PassengerDetailsPage(driver);
             
         }
     }
