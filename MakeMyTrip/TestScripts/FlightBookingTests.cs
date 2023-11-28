@@ -65,6 +65,7 @@ namespace MakeMyTrip.TestScripts
                 string? date = excelData?.Date;
                 Console.WriteLine($"Date: {date}");
                 searchFlightPage.ClickDeparture(excelData.Date);
+                Thread.Sleep(8000);
 
                 string? adult = excelData?.Adult;
                 Console.WriteLine($"Adult: {adult}");
@@ -72,7 +73,7 @@ namespace MakeMyTrip.TestScripts
                 Console.WriteLine($"Travel class: {travelclass}");
                 searchFlightPage.ClickTravellers(excelData.Adult, excelData.TravelClass);
                 Thread.Sleep(5000);
-
+            }
 
                 //string? travelclass = excelData?.TravelClass;
                 //Console.WriteLine($"Travel class: {travelclass}");
@@ -81,15 +82,11 @@ namespace MakeMyTrip.TestScripts
                 searchFlightPage.ClickApplyButton();
                 Thread.Sleep(3000);
 
-                //string? regularfare = excelData?.RegularFare;
-                //Console.WriteLine($"Regular fare: {regularfare}");
-                //searchFlightPage.ClickRegularFare(excelData.RegularFare);
+            //string? regularfare = excelData?.RegularFare;
+            //Console.WriteLine($"Regular fare: {regularfare}");
+            //searchFlightPage.ClickRegularFare(excelData.RegularFare);
 
-
-                var displayFlightPage = searchFlightPage.ClickSearchButton();
-
-                Thread.Sleep(3000);
-            }
+            var displayFlightPage = searchFlightPage.ClickSearchButton();
 
         }
     }

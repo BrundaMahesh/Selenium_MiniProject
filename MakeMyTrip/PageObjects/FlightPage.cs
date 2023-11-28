@@ -96,10 +96,10 @@ namespace MakeMyTrip.PageObjects
         //    RegularFare?.SendKeys(regularfare);
         //    RegularFare?.SendKeys(Keys.Enter);
         //}
-        public DisplayFlightPage ClickSearchButton()
+        public DisplayFlightListsFilterPage ClickSearchButton()
         {
             SearchButton?.Click();
-            return new DisplayFlightPage(driver);
+            return new DisplayFlightListsFilterPage(driver);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MakeMyTrip.PageObjects
 {
-    internal class ReviewFlightDetailsPage
+    internal class PassengerDetailsPage
     {
     }
 }
