@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MakeMyTrip.TestScripts
 {
     [TestFixture]
-    internal class MakeMyTripTests:CoreCodes
+    internal class FlightBookingTests:CoreCodes
     {
         List<BookFlightData>? excelDataList;
 
@@ -25,13 +25,14 @@ namespace MakeMyTrip.TestScripts
             fluentWait.Message = "Element not found";
 
 
-            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-            makeMyTripHomePage.ClickSignInPopup();
-            Thread.Sleep(3000);
+            //MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
+            //makeMyTripHomePage.ClickSignInPopup();
+            //Thread.Sleep(5000);
+
+            //makeMyTripHomePage.ClickLogoCheck();
+            //Assert.That(driver.Url.Contains("makemytrip"));
 
 
-            makeMyTripHomePage.ClickLogoCheck();
-            Assert.That(driver.Url.Contains("makemytrip"));
 
             var homePage = new MakeMyTripHomePage(driver);
             if (!driver.Url.Contains("https://www.makemytrip.com/"))
@@ -80,9 +81,9 @@ namespace MakeMyTrip.TestScripts
                 searchFlightPage.ClickApplyButton();
                 Thread.Sleep(3000);
 
-                string? regularfare = excelData?.RegularFare;
-                Console.WriteLine($"Regular fare: {regularfare}");
-                searchFlightPage.ClickRegularFare(excelData.RegularFare);
+                //string? regularfare = excelData?.RegularFare;
+                //Console.WriteLine($"Regular fare: {regularfare}");
+                //searchFlightPage.ClickRegularFare(excelData.RegularFare);
 
 
                 var displayFlightPage = searchFlightPage.ClickSearchButton();

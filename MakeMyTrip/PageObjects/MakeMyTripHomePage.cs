@@ -19,10 +19,10 @@ namespace MakeMyTrip.PageObjects
 
         //Arrange
         [FindsBy(How = How.XPath, Using = ("//div[@class='headerOuter']"))]
-        private IWebElement? SignInPopup { get; }
+        private IWebElement? SignInPopup { get;  }
 
        [FindsBy(How = How.XPath, Using = ("//a[@class='mmtLogo makeFlex']"))]
-        private IWebElement? LogoCheck { get; }
+        private IWebElement? LogoCheck { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//li[@class='menu_Flights']"))]
         private IWebElement? FlightOption { get; set; }

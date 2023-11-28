@@ -23,10 +23,10 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[1]/ul/li[1]"))]
         private IWebElement? OneWayRadioButton { get; }
 
-        [FindsBy(How = How.XPath, Using = ("//*[@id=\"fromCity\"]"))]
+        [FindsBy(How = How.Id, Using = ("fromCity"))]
         private IWebElement? FromInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("//*[@id=\"toCity\"]"))]
+        [FindsBy(How = How.Id, Using = ("toCity"))]
         private IWebElement? ToInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[3]/label"))]
@@ -41,8 +41,8 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[2]"))]
         private IWebElement? ApplyButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[2]/div[1]"))]
-        private IWebElement? RegularFare { get; set; }
+        //[FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[2]/div[1]"))]
+        //private IWebElement? RegularFare { get; set; }
 
 
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/p/a"))]
@@ -91,11 +91,11 @@ namespace MakeMyTrip.PageObjects
         {
             ApplyButton?.Click();
         }
-        public void ClickRegularFare(string regularfare)
-        {
-            RegularFare?.SendKeys(regularfare);
-            RegularFare?.SendKeys(Keys.Enter);
-        }
+        //public void ClickRegularFare(string regularfare)
+        //{
+        //    RegularFare?.SendKeys(regularfare);
+        //    RegularFare?.SendKeys(Keys.Enter);
+        //}
         public DisplayFlightPage ClickSearchButton()
         {
             SearchButton?.Click();
