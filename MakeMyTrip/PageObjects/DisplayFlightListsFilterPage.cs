@@ -18,11 +18,15 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[1]/div[2]/div[2]/div/div[1]")]
+        public IWebElement? NonStopCheckBox { get; set; }
 
-       
 
 
         //Act
-        
+        public void ClickNonStopCheckBox()
+        {
+            NonStopCheckBox?.Click();
+        }
     }
 }

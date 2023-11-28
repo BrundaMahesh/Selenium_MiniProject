@@ -31,18 +31,17 @@ namespace MakeMyTrip.TestScripts
 
             Console.WriteLine(driver.FindElement(By.XPath("//input[@id='departure']//following::span[1]")).Text);
 */
-            
 
-            //MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-            //makeMyTripHomePage.ClickSignInPopup();
-            //Thread.Sleep(5000);
+
+            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
+            makeMyTripHomePage.ClickSignInPopup();
+           // Thread.Sleep(5000);
 
             //makeMyTripHomePage.ClickLogoCheck();
             //Assert.That(driver.Url.Contains("makemytrip"));
 
 
-            
-           var homePage = new MakeMyTripHomePage(driver);
+            var homePage = new MakeMyTripHomePage(driver);
            if (!driver.Url.Contains("https://www.makemytrip.com/"))
            {
                 driver.Navigate().GoToUrl("https://www.makemytrip.com/");
@@ -77,7 +76,7 @@ namespace MakeMyTrip.TestScripts
 
                 string? month = excelData?.Month;
                 Console.WriteLine($"Month: {month}");
-                js.ExecuteScript("arguments[0].innerText = " + excelData.Month + " ;", searchFlightPage.Month);
+                js.ExecuteScript("arguments[0].innerText = '" + excelData.Month + "' ;", searchFlightPage.Month);
 
                 string? year = excelData?.Year;
                 Console.WriteLine($"Year: {year}");
@@ -105,8 +104,11 @@ namespace MakeMyTrip.TestScripts
             //Console.WriteLine($"Regular fare: {regularfare}");
             //searchFlightPage.ClickRegularFare(excelData.RegularFare);
 
-            var displayFlightPage = searchFlightPage.ClickSearchButton();
+            var displayFlightListsFilterPage = searchFlightPage.ClickSearchButton();
 
+            displayFlightListsFilterPage.ClickNonStopCheckBox();
+
+            
         }
     }
 }
