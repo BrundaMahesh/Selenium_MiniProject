@@ -23,7 +23,7 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = ("//*[@id=\"root\"]/div/div[2]/div/div/div/div[1]/ul/li[1]"))]
         public IWebElement? OneWayRadioButton { get; }
 
-        [FindsBy(How = How.Id, Using = ("fromCity"))]
+        [FindsBy(How = How.XPath, Using = ("//*[@id=\"fromCity\"]"))]
         public IWebElement? FromInput { get; set; }
 
         [FindsBy(How = How.Id, Using = ("toCity"))]
@@ -67,6 +67,8 @@ namespace MakeMyTrip.PageObjects
 
         public void ClickFromInput(string fromLoc)
         {
+            //FromInput?.Click();
+            //Thread.Sleep(3000);
             FromInput?.SendKeys(fromLoc);
             FromInput?.SendKeys(Keys.Enter);
         }
