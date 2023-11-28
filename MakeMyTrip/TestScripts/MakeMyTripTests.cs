@@ -28,8 +28,8 @@ namespace MakeMyTrip.TestScripts
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
             makeMyTripHomePage.ClickSignInPopup();
             Thread.Sleep(3000);
-   
-          
+
+
             makeMyTripHomePage.ClickLogoCheck();
             Assert.That(driver.Url.Contains("makemytrip"));
 
@@ -38,11 +38,12 @@ namespace MakeMyTrip.TestScripts
             {
                 driver.Navigate().GoToUrl("https://www.makemytrip.com/");
             }
-            var searchFlightPage = homePage.ClickFlightOption();
-            
-            
+            var searchFlightPage=homePage.ClickFlightOption();
+            Assert.That(driver.Url.Contains("flights"));
+
+
             searchFlightPage.ClickOneWayRadioButton();
-         
+
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string? excelFilePath = currDir + "/TestData/InputData.xlsx";
             string? sheetName = "SearchFlight";
@@ -68,7 +69,7 @@ namespace MakeMyTrip.TestScripts
                 Console.WriteLine($"Adult: {adult}");
                 string? travelclass = excelData?.TravelClass;
                 Console.WriteLine($"Travel class: {travelclass}");
-                searchFlightPage.ClickTravellers(excelData.Adult,excelData.TravelClass);
+                searchFlightPage.ClickTravellers(excelData.Adult, excelData.TravelClass);
                 Thread.Sleep(5000);
 
 
@@ -78,8 +79,15 @@ namespace MakeMyTrip.TestScripts
 
                 searchFlightPage.ClickApplyButton();
                 Thread.Sleep(3000);
-                //searchFlightPage.ClickSearchButton();
-                //Thread.Sleep(3000);
+
+                string? regularfare = excelData?.RegularFare;
+                Console.WriteLine($"Regular fare: {regularfare}");
+                searchFlightPage.ClickRegularFare(excelData.RegularFare);
+
+
+                var displayFlightPage = searchFlightPage.ClickSearchButton();
+
+                Thread.Sleep(3000);
             }
 
         }

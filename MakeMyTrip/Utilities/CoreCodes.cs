@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Serilog;
 
 namespace MakeMyTrip.Utilities
 {
@@ -105,22 +105,22 @@ namespace MakeMyTrip.Utilities
             js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
         }
 
-        //protected void LogTestResult(string testName, string result, string errorMessage = null)
-        //{
-        //    Log.Information(result);
+        protected void LogTestResult(string testName, string result, string errorMessage = null)
+        {
+            Log.Information(result);
 
-        //    test = extent.CreateTest(testName);
+            test = extent.CreateTest(testName);
 
-        //    if (errorMessage == null)
-        //    {
-        //        test.Pass(result);
-        //    }
-        //    else
-        //    {
-        //        Log.Error($"Test failed for {testName}. \n Exception: \n {errorMessage}");
-        //        test.Fail(result);
-        //    }
-        //}
+            if (errorMessage == null)
+            {
+                test.Pass(result);
+            }
+            else
+            {
+                Log.Error($"Test failed for {testName}. \n Exception: \n {errorMessage}");
+                test.Fail(result);
+            }
+        }
 
     }
 }

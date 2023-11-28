@@ -13,5 +13,6 @@ namespace MakeMyTrip.Utilities
         public string? Date { get; set; }
         public string? Adult { get; set; }
         public string? TravelClass { get; set; }
+        public string? RegularFare { get; set; }
     }
 }
