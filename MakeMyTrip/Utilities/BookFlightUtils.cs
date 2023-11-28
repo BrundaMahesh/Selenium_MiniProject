@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MakeMyTrip.Utilities
 {
-    internal class ExcelUtils
+    internal class BookFlightUtils
     {
         public static List<BookFlightData> ReadExcelData(string excelFilePath, string sheetName)
         {

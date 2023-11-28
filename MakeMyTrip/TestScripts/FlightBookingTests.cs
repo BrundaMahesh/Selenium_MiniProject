@@ -46,7 +46,7 @@ namespace MakeMyTrip.TestScripts
            string? excelFilePath = currDir + "/TestData/InputData.xlsx";
            string? sheetName = "SearchFlight";
 
-           excelDataList = ExcelUtils.ReadExcelData(excelFilePath, sheetName);
+           excelDataList = BookFlightUtils.ReadExcelData(excelFilePath, sheetName);
 
            foreach (var excelData in excelDataList)
            {
