@@ -19,7 +19,7 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
-        [FindsBy(How = How.CssSelector, Using = ".commonModal__close")]
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div")]
         private IWebElement? SignInPopup { get;  }
 
        [FindsBy(How = How.XPath, Using = "//a[@class='mmtLogo makeFlex']")]
