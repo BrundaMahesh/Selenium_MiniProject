@@ -3,6 +3,7 @@ using MakeMyTripBus.PageObjects;
 using MakeMyTripBus.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,42 @@ namespace MakeMyTripBus.TestScripts
         List<PassengerData>? passengerDataList;
 
         [Test, Category("End to End Testing")]
-        public void UserBusBookingTest()
+        public void UserBusTicketBookingTest()
         {
+            string? currdir = Directory.GetParent(@"../../../")?.FullName;
+            string? logfilepath = currdir + "/Logs/log_" +
+                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+
             var homePage = new MakeMyTripHomePage(driver);
             if (!driver.Url.Contains("https://www.makemytrip.com/"))
             {
                 driver.Navigate().GoToUrl("https://www.makemytrip.com/");
             }
-            var searchBusPage = homePage.ClickBusesOption();
-            Thread.Sleep(5000);
-            Assert.That(driver.Url.Contains("bus"));
+            Log.Information("User bus ticket booking test started");
 
+
+
+
+            var searchBusPage = homePage.ClickBusesOption();
+            try
+            {
+                Assert.That(driver.Url.Contains("bus"));
+                Log.Information("Test passed for Bus Option Clicking");
+                test = extent.CreateTest("Bus Page Loading");
+                test.Pass("Bus Page Loaded Successfully");
+            }
+            catch (AssertionException ex)
+            {
+                Log.Error($"Test failed for Bus Option Clicking. \n Exception: {ex.Message}");
+                test = extent.CreateTest("Bus Page Loading");
+                test.Fail("Bus Page Loading failed");
+            }
+            Thread.Sleep(5000);
 
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string? excelFilePath = currDir + "/TestData/InputData.xlsx";
@@ -70,7 +96,8 @@ namespace MakeMyTripBus.TestScripts
                 Thread.Sleep(5000);
             }
             var displayBusListsFilterPage = searchBusPage.ClickSearchButton();
-            Thread.Sleep(10000);
+
+            Thread.Sleep(5000);
 
             displayBusListsFilterPage.ClickAC();
             displayBusListsFilterPage.ClickSeatType();
@@ -78,14 +105,16 @@ namespace MakeMyTripBus.TestScripts
             Thread.Sleep(5000);
             displayBusListsFilterPage.ClickParticularSeat();
             Thread.Sleep(5000);
-            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[1]/ul/li[1]")));
+            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]")));
             displayBusListsFilterPage.ClickPickUpPoint();
             Thread.Sleep(5000);
             //ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[2]/ul/li[1]")));
             displayBusListsFilterPage.ClickDropPoint();
             Thread.Sleep(5000);
 
+            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[3]")));
             var passengerDetailsPage=displayBusListsFilterPage.ClickContinueButton();
+            Thread.Sleep(5000);
             string? sheetName1 = "PassengerDetails";
 
             passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName1);
@@ -99,7 +128,7 @@ namespace MakeMyTripBus.TestScripts
                 string? age = excelData1?.Age;
                 Console.WriteLine($"Last name: {age}");
                 passengerDetailsPage.ClickAgeInput(age);
-                Thread.Sleep(5000);
+                
 
                 passengerDetailsPage.ClickGender();
                 passengerDetailsPage.ClickStateDropDown();
@@ -108,12 +137,12 @@ namespace MakeMyTripBus.TestScripts
                 string? email = excelData1?.Email;
                 Console.WriteLine($"Email: {email}");
                 passengerDetailsPage.ClickEmailInput(email);
-                Thread.Sleep(5000);
+                
 
                 string? mobilenumber = excelData1?.MobileNumber;
                 Console.WriteLine($"Mobile Number: {mobilenumber}");
                 passengerDetailsPage.ClickMobileNumberInput(mobilenumber);
-                Thread.Sleep(5000);
+                
 
                 passengerDetailsPage.ClickSecureTripCheckbox();
 
