@@ -82,22 +82,28 @@ namespace MakeMyTrip.TestScripts
                 string? travelclass = excelData?.TravelClass;
                 Console.WriteLine($"Travel class: {travelclass}");
                 searchFlightPage.ClickTravellers(excelData.Adult, excelData.TravelClass);
+                ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"root\"]/div/div[2]/div/div/div/div[2]/div[1]/div[5]/div[2]/div[1]/div")));
                 Thread.Sleep(5000);
            }
             searchFlightPage.ClickApplyButton();
             Thread.Sleep(3000);
 
-          
 
+            ScrollIntoView(driver, driver.FindElement(By.XPath("//a[contains(@class,'widgetSearchBtn')] ")));
             var displayFlightListsFilterPage = searchFlightPage.ClickSearchButton();
             Thread.Sleep(20000);
 
+            displayFlightListsFilterPage.ClickOkayGotItPopUp();
+            Thread.Sleep(3000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickNonStopCheckBox();
             Thread.Sleep(10000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickIndigoCheckBox();
-            Thread.Sleep(10000);
+            Thread.Sleep(3000);
+            ScrollIntoView(driver, driver.FindElement(By.XPath("(//div[@class='clusterContent']//following::button)[1]")));
+            Thread.Sleep(3000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickViewPricesButton();
-            Thread.Sleep(10000);
+            //Thread.Sleep(5000);
+            //ScrollIntoView(driver, driver.FindElement(By.XPath("(//div[@class='viewFareRowWrap']//following::button)[2]")));
             displayFlightListsFilterPage.ClickBookNowButton();
             
 
@@ -108,6 +114,7 @@ namespace MakeMyTrip.TestScripts
 
             var passengerDetailsPage = new PassengerDetailsPage(driver);
             Thread.Sleep(10000);
+            //ScrollIntoView(driver, driver.FindElement(By.XPath("//*[contains(text(),'No,')]")));
             passengerDetailsPage.ClickNoRadioButton();
             Thread.Sleep(5000);
             passengerDetailsPage.ClickAddNewAdult();
@@ -141,13 +148,21 @@ namespace MakeMyTrip.TestScripts
                 passengerDetailsPage.ClickEmailInput(excelData1.Email);
                 Thread.Sleep(5000);
             }
-            
+
             //passengerDetailsPage.ClickStateDropDown();
-            Thread.Sleep(5000);
-            passengerDetailsPage.ClickConfirmAndSaveCheckBox();
-            Thread.Sleep(5000);
-            passengerDetailsPage.ClickContinueButton();
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
+
+            IWebElement element = driver.FindElement(By.XPath("//p[@class='checkboxWithLblWpr__label' and contains(text(),'Confirm and save billing details to your profile')]"));
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+            executor.ExecuteScript("arguments[0].click();", element);
+
+            //passengerDetailsPage.ClickConfirmAndSaveCheckBox();
+            //Thread.Sleep(5000);
+            IWebElement element1 = driver.FindElement(By.XPath("//*[@id=\"mainSection_0\"]/div[2]/button"));
+            executor.ExecuteScript("arguments[0].click();", element1); 
+
+            //passengerDetailsPage.ClickContinueButton();
+            //Thread.Sleep(5000);
             passengerDetailsPage.ClickConfirmButton();
             Thread.Sleep(5000);
 

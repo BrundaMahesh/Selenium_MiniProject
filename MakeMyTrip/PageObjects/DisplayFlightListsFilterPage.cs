@@ -18,6 +18,8 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div/div/div[3]/button")]
+        public IWebElement? OkayGotItPopUp { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//p[@class='checkboxTitle' and contains(text(),'Non Stop')])[1]")]
         public IWebElement? NonStopCheckBox { get; set; }
@@ -31,6 +33,10 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = "(//div[@class='viewFareRowWrap']//following::button)[2]")]
         public IWebElement? BookNowButton { get; set; }
         //Act
+        public void ClickOkayGotItPopUp()
+        {
+            OkayGotItPopUp?.Click();
+        }
         public DisplayFlightListsFilterPage ClickNonStopCheckBox()
         {
             NonStopCheckBox?.Click();
