@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SeleniumExtras.WaitHelpers;
 
 namespace MakeMyTrip.TestScripts
 {
@@ -14,6 +15,7 @@ namespace MakeMyTrip.TestScripts
     internal class FlightBookingTests:CoreCodes
     {
         List<BookFlightData>? excelDataList;
+        List<PassengerData>? passengerDataList;
 
         [Test,Category("End to End Testing")]
         public void UserBookingFlightTest()
@@ -87,16 +89,40 @@ namespace MakeMyTrip.TestScripts
           
 
             var displayFlightListsFilterPage = searchFlightPage.ClickSearchButton();
+            Thread.Sleep(10000);
 
-            displayFlightListsFilterPage.ClickNonStopCheckBox();
-            displayFlightListsFilterPage.ClickIndigoCheckBox();
-            displayFlightListsFilterPage.ClickViewPricesButton();
+            displayFlightListsFilterPage = displayFlightListsFilterPage.ClickNonStopCheckBox();
+            Thread.Sleep(10000);
+            displayFlightListsFilterPage = displayFlightListsFilterPage.ClickIndigoCheckBox();
+            Thread.Sleep(10000);
+            displayFlightListsFilterPage = displayFlightListsFilterPage.ClickViewPricesButton();
+            Thread.Sleep(5000);
+            displayFlightListsFilterPage.ClickBookNowButton();
+            
+
+
 
             List<string> nextwindow = driver.WindowHandles.ToList();
             driver.SwitchTo().Window(nextwindow[1]);
 
             var passengerDetailsPage = new PassengerDetailsPage(driver);
-            
+            passengerDetailsPage.ClickNoRadioButton();
+            passengerDetailsPage.ClickAddNewAdult();
+
+            string? currDir = Directory.GetParent(@"../../../")?.FullName;
+            string? excelFilePath = currDir + "/TestData/InputData.xlsx";
+            string? sheetName = "PassengerDetails";
+
+            passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName);
+
+            foreach (var excelData in passengerDataList)
+            {
+                string? firstname = excelData?.FirstName;
+                Console.WriteLine($"First name: {firstname}");
+                passengerDetailsPage.ClickFirstNameInput(excelData.FirstName);
+                
+                //passengerDetailsPage.ClickFirstNameInput();
+            }
         }
     }
 }

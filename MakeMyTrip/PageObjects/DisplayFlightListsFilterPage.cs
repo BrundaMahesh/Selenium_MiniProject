@@ -19,29 +19,38 @@ namespace MakeMyTrip.PageObjects
 
         //Arrange
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/label/div")]
+        [FindsBy(How = How.XPath, Using = "(//p[@class='checkboxTitle' and contains(text(),'Non Stop')])[1]")]
         public IWebElement? NonStopCheckBox { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[1]/div[2]/div[1]/div/div[3]")]
+        [FindsBy(How = How.XPath, Using = "(//p[@class='checkboxTitle' and contains(text(),'IndiGo')])[1]")]
         public IWebElement? IndigoCheckBox { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"bookbutton-RKEY:8a84f288-69d0-4e74-b8f2-b742b36ba9a3:33_0\"]")]
+        [FindsBy(How = How.XPath, Using = "(//div[@class='clusterContent']//following::button)[1]")]
         public IWebElement? ViewPricesButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"bookbutton-RKEY:8a84f288-69d0-4e74-b8f2-b742b36ba9a3:33_0\"]")]
+        [FindsBy(How = How.XPath, Using = "(//div[@class='viewFareRowWrap']//following::button)[2]")]
         public IWebElement? BookNowButton { get; set; }
         //Act
-        public void ClickNonStopCheckBox()
+        public DisplayFlightListsFilterPage ClickNonStopCheckBox()
         {
             NonStopCheckBox?.Click();
+            return new DisplayFlightListsFilterPage(driver);
         }
-        public void ClickIndigoCheckBox()
+        public DisplayFlightListsFilterPage ClickIndigoCheckBox()
         {
             IndigoCheckBox?.Click();
+            return new DisplayFlightListsFilterPage(driver);
         }
-        public void ClickViewPricesButton()
+        public DisplayFlightListsFilterPage ClickViewPricesButton()
         {
             ViewPricesButton?.Click();
+            return new DisplayFlightListsFilterPage(driver);
+        }
+        public PassengerDetailsPage ClickBookNowButton()
+        {
+            BookNowButton?.Click();
+            return new PassengerDetailsPage(driver);
+       
         }
     }
 }
