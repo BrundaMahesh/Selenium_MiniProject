@@ -127,6 +127,9 @@ namespace MakeMyTripBus.TestScripts
                 paymentPage.ClickUpiIdInput(upiId);
                 Thread.Sleep(5000);
 
+                paymentPage.ClickVerifyAndPayButton();
+                Thread.Sleep(5000);
+                paymentPage.ClickCancelButton();
             }
             
         }

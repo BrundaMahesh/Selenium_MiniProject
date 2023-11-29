@@ -23,6 +23,12 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.Id, Using = "inputVpa")]
         public IWebElement? UpiIdInput { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[1]/main/div[1]/div[3]/div[2]/div[1]/div[1]/div/div/button")]
+        public IWebElement? VerifyAndPayButton { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div/div[2]/button")]
+        public IWebElement? CancelButton { get; set; }
+
         public void ClickUpiOption()
         {
             UpiOption?.Click();
@@ -31,6 +37,14 @@ namespace MakeMyTripBus.PageObjects
         {
             UpiIdInput?.SendKeys(upiInput);
             UpiIdInput?.SendKeys(Keys.Enter);
+        }
+        public void ClickVerifyAndPayButton()
+        {
+            VerifyAndPayButton?.Click();
+        }
+        public void ClickCancelButton()
+        {
+            CancelButton?.Click();
         }
     }
 }
