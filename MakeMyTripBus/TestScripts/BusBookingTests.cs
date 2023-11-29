@@ -15,8 +15,10 @@ namespace MakeMyTripBus.TestScripts
     internal class BusBookingTests:CoreCodes
     {
         List<BookBusData>? excelDataList;
+        List<PassengerData>? passengerDataList;
+
         [Test, Category("End to End Testing")]
-        public void UserBusBooking()
+        public void UserBusBookingTest()
         {
             var homePage = new MakeMyTripHomePage(driver);
             if (!driver.Url.Contains("https://www.makemytrip.com/"))
@@ -51,7 +53,7 @@ namespace MakeMyTripBus.TestScripts
                // searchBusPage.ClickOnToInput();
                 Thread.Sleep(3000);
                 searchBusPage.ClickOnSelectToInput();
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
 
                 string? date = excelData?.Date;
                 Console.WriteLine($"Date: {date}");
@@ -68,10 +70,65 @@ namespace MakeMyTripBus.TestScripts
                 Thread.Sleep(5000);
             }
             var displayBusListsFilterPage = searchBusPage.ClickSearchButton();
+            Thread.Sleep(10000);
 
             displayBusListsFilterPage.ClickAC();
             displayBusListsFilterPage.ClickSeatType();
+            displayBusListsFilterPage.ClickSelectSeatButton();
+            Thread.Sleep(5000);
+            displayBusListsFilterPage.ClickParticularSeat();
+            Thread.Sleep(5000);
+            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[1]/ul/li[1]")));
+            displayBusListsFilterPage.ClickPickUpPoint();
+            Thread.Sleep(5000);
+            //ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[2]/ul/li[1]")));
+            displayBusListsFilterPage.ClickDropPoint();
+            Thread.Sleep(5000);
 
+            var passengerDetailsPage=displayBusListsFilterPage.ClickContinueButton();
+            string? sheetName1 = "PassengerDetails";
+
+            passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName1);
+
+            foreach (var excelData1 in passengerDataList)
+            {
+                string? name = excelData1?.Name;
+                Console.WriteLine($"First name: {name}");
+                passengerDetailsPage.ClickNameInput(name);
+
+                string? age = excelData1?.Age;
+                Console.WriteLine($"Last name: {age}");
+                passengerDetailsPage.ClickAgeInput(age);
+                Thread.Sleep(5000);
+
+                passengerDetailsPage.ClickGender();
+                passengerDetailsPage.ClickStateDropDown();
+                passengerDetailsPage.ClickConfirmAndSaveCheckBox();
+
+                string? email = excelData1?.Email;
+                Console.WriteLine($"Email: {email}");
+                passengerDetailsPage.ClickEmailInput(email);
+                Thread.Sleep(5000);
+
+                string? mobilenumber = excelData1?.MobileNumber;
+                Console.WriteLine($"Mobile Number: {mobilenumber}");
+                passengerDetailsPage.ClickMobileNumberInput(mobilenumber);
+                Thread.Sleep(5000);
+
+                passengerDetailsPage.ClickSecureTripCheckbox();
+
+                var paymentPage = passengerDetailsPage.ClickContinueButton();
+                Thread.Sleep(5000);
+                paymentPage.ClickUpiOption();
+                Thread.Sleep(5000);
+
+                string? upiId = excelData1?.UpiId;
+                Console.WriteLine($"Upi Id: {upiId}");
+                paymentPage.ClickUpiIdInput(upiId);
+                Thread.Sleep(5000);
+
+            }
+            
         }
     }
 }
