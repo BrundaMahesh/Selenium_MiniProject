@@ -1,5 +1,4 @@
-﻿
-using MakeMyTripBus.PageObjects;
+﻿using MakeMyTripBus.PageObjects;
 using MakeMyTripBus.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
