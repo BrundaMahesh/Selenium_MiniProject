@@ -68,9 +68,10 @@ namespace MakeMyTrip.PageObjects
 
         public void ClickFromInput(string fromLoc)
         {
-            //FromInput?.Click();
+            FromInput?.Click();
             //Thread.Sleep(3000);
             FromInput?.SendKeys(fromLoc);
+            
             FromInput?.SendKeys(Keys.Enter);
         }
 

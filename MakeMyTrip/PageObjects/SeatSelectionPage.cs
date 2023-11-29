@@ -18,10 +18,10 @@ namespace MakeMyTrip.PageObjects
         }
 
         //Arrange
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"BOM$BLR$2023-12-02 10:00$6E-5211_39D\"]/div")]
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"BOM$BLR$2023-12-20 02:25$6E-6284\"]/div[2]/div[2]/div/div[4]/div[3]")]
         public IWebElement? SeatNumber { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"mainSection_1\"]/div[2]/button")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='mainSection_1']/div[2]/button")]
         public IWebElement? ContinueButton { get; set; }
 
         //Act                              

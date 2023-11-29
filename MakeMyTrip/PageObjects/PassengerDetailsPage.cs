@@ -44,7 +44,7 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = "//*[@id=\"Email\"]/div/input")]
         public IWebElement? StateDropDown { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//p[@class='checkboxWithLblWpr__label' and contains(text(),'Confirm and save billing details to your profile')]")]
+        [FindsBy(How = How.Id, Using = "cb_gst_info")]
         public IWebElement? ConfirmAndSaveCheckBox { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"mainSection_0\"]/div[2]/button")]

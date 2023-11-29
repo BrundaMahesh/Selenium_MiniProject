@@ -40,6 +40,7 @@ namespace MakeMyTrip.TestScripts
                 driver.Navigate().GoToUrl("https://www.makemytrip.com/");
            }
            var searchFlightPage=homePage.ClickFlightOption();
+           Thread.Sleep(5000);
            Assert.That(driver.Url.Contains("flights"));
 
            searchFlightPage.ClickOneWayRadioButton();
@@ -141,8 +142,7 @@ namespace MakeMyTrip.TestScripts
                 Thread.Sleep(5000);
             }
             
-            Thread.Sleep(10000);
-            passengerDetailsPage.ClickStateDropDown();
+            //passengerDetailsPage.ClickStateDropDown();
             Thread.Sleep(5000);
             passengerDetailsPage.ClickConfirmAndSaveCheckBox();
             Thread.Sleep(5000);
@@ -150,6 +150,9 @@ namespace MakeMyTrip.TestScripts
             Thread.Sleep(5000);
             passengerDetailsPage.ClickConfirmButton();
             Thread.Sleep(5000);
+
+
+
         }
     }
 }
