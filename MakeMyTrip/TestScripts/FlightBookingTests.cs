@@ -96,15 +96,20 @@ namespace MakeMyTrip.TestScripts
             displayFlightListsFilterPage.ClickOkayGotItPopUp();
             Thread.Sleep(3000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickNonStopCheckBox();
-            Thread.Sleep(10000);
+            //Thread.Sleep(1000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickIndigoCheckBox();
             Thread.Sleep(3000);
             ScrollIntoView(driver, driver.FindElement(By.XPath("(//div[@class='clusterContent']//following::button)[1]")));
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickViewPricesButton();
             //Thread.Sleep(5000);
             //ScrollIntoView(driver, driver.FindElement(By.XPath("(//div[@class='viewFareRowWrap']//following::button)[2]")));
+            
+            IWebElement element3 = driver.FindElement(By.XPath("//*[@id=\"root\"]/div/div[2]/div[4]/div/div[2]/button"));
+            IJavaScriptExecutor executor1 = (IJavaScriptExecutor)driver;
+            executor1.ExecuteScript("arguments[0].click();", element3);
             displayFlightListsFilterPage.ClickBookNowButton();
+            Thread.Sleep(3000);
             
 
 
@@ -159,11 +164,13 @@ namespace MakeMyTrip.TestScripts
             //passengerDetailsPage.ClickConfirmAndSaveCheckBox();
             //Thread.Sleep(5000);
             IWebElement element1 = driver.FindElement(By.XPath("//*[@id=\"mainSection_0\"]/div[2]/button"));
-            executor.ExecuteScript("arguments[0].click();", element1); 
+            executor.ExecuteScript("arguments[0].click();", element1);
 
             //passengerDetailsPage.ClickContinueButton();
             //Thread.Sleep(5000);
-            passengerDetailsPage.ClickConfirmButton();
+            IWebElement element2 = driver.FindElement(By.XPath("//*[@id=\"root\"]/div/div[2]/div[4]/div/div[2]/button"));
+            executor.ExecuteScript("arguments[0].click();", element2);
+            //passengerDetailsPage.ClickConfirmButton();
             Thread.Sleep(5000);
 
 
