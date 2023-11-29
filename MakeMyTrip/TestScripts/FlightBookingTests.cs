@@ -106,14 +106,16 @@ namespace MakeMyTrip.TestScripts
             driver.SwitchTo().Window(nextwindow[1]);
 
             var passengerDetailsPage = new PassengerDetailsPage(driver);
+            Thread.Sleep(10000);
             passengerDetailsPage.ClickNoRadioButton();
+            Thread.Sleep(5000);
             passengerDetailsPage.ClickAddNewAdult();
+            Thread.Sleep(5000);
+            //string? currDir = Directory.GetParent(@"../../../")?.FullName;
+            //string? excelFilePath = currDir + "/TestData/InputData.xlsx";
+            string? sheetName1 = "PassengerDetails";
 
-            string? currDir = Directory.GetParent(@"../../../")?.FullName;
-            string? excelFilePath = currDir + "/TestData/InputData.xlsx";
-            string? sheetName = "PassengerDetails";
-
-            passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName);
+            passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName1);
 
             foreach (var excelData in passengerDataList)
             {

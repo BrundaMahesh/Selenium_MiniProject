@@ -12,7 +12,7 @@ namespace MakeMyTrip.Utilities
     {
         public static List<PassengerData> ReadExcelData(string excelFilePath, string sheetName)
         {
-            List<PassengerData> excelDataList = new List<PassengerData>();
+            List<PassengerData> passengerDataList = new List<PassengerData>();
             Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
             using (var stream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -42,7 +42,7 @@ namespace MakeMyTrip.Utilities
                                 
                             };
 
-                            excelDataList.Add(excelData);
+                            passengerDataList.Add(excelData);
                         }
                     }
                     else
@@ -52,7 +52,7 @@ namespace MakeMyTrip.Utilities
                 }
             }
 
-            return excelDataList;
+            return passengerDataList;
         }
 
         static string GetValueOrDefault(DataRow row, string columnName)
