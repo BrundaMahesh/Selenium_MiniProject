@@ -33,7 +33,7 @@ namespace MakeMyTrip.Utilities
                     {
                         foreach (DataRow row in dataTable.Rows)
                         {
-                            PassengerData excelData = new PassengerData
+                            PassengerData excelData1 = new PassengerData
                             {
                                 FirstName = GetValueOrDefault(row, "firstname"),
                                 LastName = GetValueOrDefault(row, "lastname"),
@@ -42,7 +42,7 @@ namespace MakeMyTrip.Utilities
                                 
                             };
 
-                            passengerDataList.Add(excelData);
+                            passengerDataList.Add(excelData1);
                         }
                     }
                     else

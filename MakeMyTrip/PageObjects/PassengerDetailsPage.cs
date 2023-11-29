@@ -23,13 +23,13 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.ClassName, Using = "addTravellerBtn")]
         public IWebElement? AddNewAdult { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[contains(@class,'err-border')]")]
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"wrapper_ADULT\"]/div[3]/div[2]/div[2]/div/div/div/div[1]/div/input")]
         public IWebElement? FirstNameInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"wrapper_ADULT\"]/div[3]/div[2]/div[2]/div/div/div/div[2]/div/input")]
         public IWebElement? LastNameInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"wrapper_ADULT\"]/div[3]/div[2]/div[2]/div/div/div/div[3]/div/div/label[1]/input")]
+        [FindsBy(How = How.XPath, Using = "//input[@value='MALE']")]
         public IWebElement? MaleButton { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"Mobile No\"]/div/input")]
@@ -38,13 +38,13 @@ namespace MakeMyTrip.PageObjects
         [FindsBy(How = How.XPath, Using = "//*[@id=\"Email\"]/div/input")]
         public IWebElement? EmailInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"pincode_gst_info\"]")]
-        public IWebElement? PincodeInput { get; set; }
+        //[FindsBy(How = How.XPath, Using = "//*[@id=\"pincode_gst_info\"]")]
+        //public IWebElement? PincodeInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"Email\"]/div/input")]
         public IWebElement? StateDropDown { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "checkboxWithLblWpr__checkboxCtr")]
+        [FindsBy(How = How.XPath, Using = "//p[@class='checkboxWithLblWpr__label' and contains(text(),'Confirm and save billing details to your profile')]")]
         public IWebElement? ConfirmAndSaveCheckBox { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"mainSection_0\"]/div[2]/button")]
@@ -84,11 +84,11 @@ namespace MakeMyTrip.PageObjects
             EmailInput?.SendKeys(email);
             EmailInput?.SendKeys(Keys.Enter);
         }
-        public void ClickPincodeInput(string pincode)
-        {
-            PincodeInput?.SendKeys(pincode);
-            PincodeInput?.SendKeys(Keys.Enter);
-        }
+        //public void ClickPincodeInput(string pincode)
+        //{
+        //    PincodeInput?.SendKeys(pincode);
+        //    PincodeInput?.SendKeys(Keys.Enter);
+        //}
         public void ClickStateDropDown()
         {
             StateDropDown?.Click();

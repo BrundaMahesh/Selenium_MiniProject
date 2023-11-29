@@ -89,14 +89,14 @@ namespace MakeMyTrip.TestScripts
           
 
             var displayFlightListsFilterPage = searchFlightPage.ClickSearchButton();
-            Thread.Sleep(10000);
+            Thread.Sleep(20000);
 
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickNonStopCheckBox();
             Thread.Sleep(10000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickIndigoCheckBox();
             Thread.Sleep(10000);
             displayFlightListsFilterPage = displayFlightListsFilterPage.ClickViewPricesButton();
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             displayFlightListsFilterPage.ClickBookNowButton();
             
 
@@ -117,14 +117,39 @@ namespace MakeMyTrip.TestScripts
 
             passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName1);
 
-            foreach (var excelData in passengerDataList)
+            foreach (var excelData1 in passengerDataList)
             {
-                string? firstname = excelData?.FirstName;
+                string? firstname = excelData1?.FirstName;
                 Console.WriteLine($"First name: {firstname}");
-                passengerDetailsPage.ClickFirstNameInput(excelData.FirstName);
-                
-                //passengerDetailsPage.ClickFirstNameInput();
+                passengerDetailsPage.ClickFirstNameInput(excelData1.FirstName);
+
+                string? lastname = excelData1?.LastName;
+                Console.WriteLine($"Last name: {lastname}");
+                passengerDetailsPage.ClickLastNameInput(excelData1.LastName);
+                Thread.Sleep(5000);
+
+                passengerDetailsPage.ClickMaleButton();
+
+                string? mobilenumber = excelData1?.MobileNumber;
+                Console.WriteLine($"Mobile Number: {mobilenumber}");
+                passengerDetailsPage.ClickMobileNumberInput(excelData1.MobileNumber);
+                Thread.Sleep(5000);
+
+                string? email = excelData1?.Email;
+                Console.WriteLine($"Email: {email}");
+                passengerDetailsPage.ClickEmailInput(excelData1.Email);
+                Thread.Sleep(5000);
             }
+            
+            Thread.Sleep(10000);
+            passengerDetailsPage.ClickStateDropDown();
+            Thread.Sleep(5000);
+            passengerDetailsPage.ClickConfirmAndSaveCheckBox();
+            Thread.Sleep(5000);
+            passengerDetailsPage.ClickContinueButton();
+            Thread.Sleep(5000);
+            passengerDetailsPage.ClickConfirmButton();
+            Thread.Sleep(5000);
         }
     }
 }
