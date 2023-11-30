@@ -31,20 +31,32 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.Id, Using = "toCity")]
         public IWebElement? ToInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@aria-controls='react-autowhatever-1']")]
+        [FindsBy(How = How.XPath, Using = "//input[@title='To']")]
         public IWebElement? ToInputText { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "(//ul[@role='listbox']//child::span[contains(@class,'sr_city')])[position()=1]")]
+        [FindsBy(How = How.XPath, Using = "(//span[starts-with(@class,'sr_city')])[1]")]
         public IWebElement? SelectToInputText { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@id='travelDate']//following::span[1]")]
-        public IWebElement? Date { get; set; }
+        //[FindsBy(How = How.XPath, Using = "//input[@id='travelDate']//following::span[1]")]
+        //public IWebElement? Date { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@id='travelDate']//following::span[2]")]
-        public IWebElement? Month { get; set; }
+        //[FindsBy(How = How.XPath, Using = "//input[@id='travelDate']//following::span[2]")]
+        //public IWebElement? Month { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//input[@id='travelDate']//following::span[3]")]
-        public IWebElement? Year { get; set; }
+        //[FindsBy(How = How.XPath, Using = "//input[@id='travelDate']//following::span[3]")]
+        //public IWebElement? Year { get; set; }
+        IWebElement? GetDate(string date)
+        {
+            return driver.FindElement(By.XPath("//div[@class='DayPicker-Months']//child::div[@aria-label='"+date+"']"));
+        }
+        public string? GetDateText(string date)
+        {
+            return GetDate(date)?.Text;
+        }
+        public void ClickGetDate(string date)
+        {
+            GetDate(date)?.Click(); 
+        }
 
         [FindsBy(How = How.Id, Using = "search_button")]
         private IWebElement? SearchButton { get; set; }
@@ -65,9 +77,13 @@ namespace MakeMyTripBus.PageObjects
         }
 
 
+        public void ClickOnToInput()
+        {
+            ToInput?.Click();
+        }
 
-
-        public void ClickToInput(string toLoc)
+        //span[contains(@class,'listingSprite')]
+        public void ClickToInputText(string toLoc)
         {
             ToInputText?.SendKeys(toLoc);
             ToInputText?.SendKeys(Keys.Enter);
@@ -77,25 +93,22 @@ namespace MakeMyTripBus.PageObjects
         {
             SelectToInputText?.Click();
         }
-        //public void ClickOnToInput()
+        
+        //public void ClickDate(string date)
         //{
-        //    ToInput?.Click();
+        //    Date?.SendKeys(date);
+        //    Date?.SendKeys(Keys.Enter);
         //}
-        public void ClickDate(string date)
-        {
-            Date?.SendKeys(date);
-            Date?.SendKeys(Keys.Enter);
-        }
-        public void ClickMonth(string month)
-        {
-            Month?.SendKeys(month);
-            Month?.SendKeys(Keys.Enter);
-        }
-        public void ClickYear(string year)
-        {
-            Year?.SendKeys(year);
-            Year?.SendKeys(Keys.Enter);
-        }
+        //public void ClickMonth(string month)
+        //{
+        //    Month?.SendKeys(month);
+        //    Month?.SendKeys(Keys.Enter);
+        //}
+        //public void ClickYear(string year)
+        //{
+        //    Year?.SendKeys(year);
+        //    Year?.SendKeys(Keys.Enter);
+        //}
         public DisplayBusListsFilterPage ClickSearchButton()
         {
             SearchButton?.Click();

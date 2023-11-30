@@ -38,8 +38,7 @@ namespace MakeMyTripBus.Utilities
                                 FromInput = GetValueOrDefault(row, "frominput"),
                                 ToInput = GetValueOrDefault(row, "toinput"),
                                 Date = GetValueOrDefault(row, "date"),
-                                Month = GetValueOrDefault(row, "month"),
-                                Year = GetValueOrDefault(row, "year"),
+                                SeatPosition = GetValueOrDefault(row,"seatposition")
                             };
 
                             excelDataList.Add(excelData);

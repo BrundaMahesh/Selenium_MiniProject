@@ -11,7 +11,6 @@ namespace MakeMyTripBus.Utilities
         public string? FromInput { get; set; }
         public string? ToInput { get; set; }
         public string? Date { get; set; }
-        public string? Month { get; set; }
-        public string? Year { get; set; }
+        public string? SeatPosition { get; set; }
     }
 }

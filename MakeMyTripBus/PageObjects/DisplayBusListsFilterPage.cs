@@ -26,7 +26,7 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "(//div[@class='busListingContainer']//following::div[@class='busCardContainer '])[1]")]
         public IWebElement? SelectSeatButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[18]/div/li/span[1]")]
+        [FindsBy(How = How.XPath, Using = "(//div[@class='makeAbsolute']/div/li)[1]")]
         public IWebElement? ParticularSeat { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[1]/ul/li[1]")]
@@ -53,9 +53,10 @@ namespace MakeMyTripBus.PageObjects
             return new DisplayBusListsFilterPage(driver);
         }
 
-        public void ClickParticularSeat()
+        public void ClickParticularSeat(string seatposition)
         {
-            ParticularSeat?.Click();
+           IWebElement particularSeat= driver.FindElement(By.XPath("(//div[@class='makeAbsolute']/div/li)" + "[" + seatposition + "]"));
+           particularSeat?.Click();
         }
 
         public void ClickPickUpPoint()

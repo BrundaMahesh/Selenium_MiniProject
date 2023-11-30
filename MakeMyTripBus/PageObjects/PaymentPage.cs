@@ -17,7 +17,7 @@ namespace MakeMyTripBus.PageObjects
             this.driver = driver ?? throw new ArgumentException(nameof(driver));
             PageFactory.InitElements(driver, this);
         }
-        [FindsBy(How = How.XPath, Using = "//div[@class='payment__options__tab']//following::li[2]")]
+        [FindsBy(How = How.XPath, Using = "//div[starts-with(@class,'payment__option__title font12')]/span[text()='UPI Options']")]
         public IWebElement? UpiOption { get; set; }
 
         [FindsBy(How = How.Id, Using = "inputVpa")]

@@ -25,8 +25,11 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "(//div[@class='genderTab makeFlex']//child::span)[1]")]
         public IWebElement? Gender { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "(//div[@class='genderTab makeFlex']//child::span)[1]")]
+        [FindsBy(How = How.ClassName, Using = "dropdownFieldWpr__inputWpr")]
         public IWebElement? StateDropDown { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "(//*[@class='dropdownListWpr'])/li[1]")]
+        public IWebElement? ParticularState { get; set; }
 
         [FindsBy(How = How.ClassName, Using = "checkboxWithLblWpr__label")]
         public IWebElement? ConfirmAndSaveCheckBox{ get; set; }
@@ -59,6 +62,10 @@ namespace MakeMyTripBus.PageObjects
         public void ClickStateDropDown()
         {
             StateDropDown?.Click();
+        }
+        public void ClickParticularState()
+        {
+            ParticularState?.Click();
         }
         public void ClickConfirmAndSaveCheckBox()
         {

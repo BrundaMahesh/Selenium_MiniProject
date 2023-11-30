@@ -18,6 +18,7 @@ namespace MakeMyTripBus.TestScripts
         List<PassengerData>? passengerDataList;
 
         [Test, Category("End to End Testing")]
+       
         public void UserBusTicketBookingTest()
         {
             string? currdir = Directory.GetParent(@"../../../")?.FullName;
@@ -36,7 +37,7 @@ namespace MakeMyTripBus.TestScripts
             }
             Log.Information("User bus ticket booking test started");
 
-
+            //driver.Navigate().GoToUrl("https://www.makemytrip.com/");
 
 
             var searchBusPage = homePage.ClickBusesOption();
@@ -63,6 +64,7 @@ namespace MakeMyTripBus.TestScripts
 
             foreach (var excelData in excelDataList)
             {
+                
                 string? fromInput = excelData?.FromInput;
                 searchBusPage.ClickOnFromInput();
                 Thread.Sleep(3000);
@@ -74,92 +76,115 @@ namespace MakeMyTripBus.TestScripts
 
 
                 string? toInput = excelData?.ToInput;
-                Console.WriteLine($"To Input: {toInput}");
-               // searchBusPage.ClickOnToInput();
+                /*Console.WriteLine($"To Input: {toInput}");
+                searchBusPage.ClickOnToInput();
+                Thread.Sleep(3000);*/
+
+                searchBusPage.ClickToInputText(toInput);
                 Thread.Sleep(3000);
                 searchBusPage.ClickOnSelectToInput();
                 Thread.Sleep(5000);
 
-                string? date = excelData?.Date;
-                Console.WriteLine($"Date: {date}");
-                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-                js.ExecuteScript("arguments[0].innerText = " + excelData.Date + " ;", searchBusPage.Date);
-
-                string? month = excelData?.Month;
-                Console.WriteLine($"Month: {month}");
-                js.ExecuteScript("arguments[0].innerText = '" + excelData.Month + "' ;", searchBusPage.Month);
-
-                string? year = excelData?.Year;
-                Console.WriteLine($"Year: {year}");
-                js.ExecuteScript("arguments[0].innerText = " + excelData.Year + " ;", searchBusPage.Year);
+                string? date = excelData.Date;
+                Console.WriteLine($"date: {date}");
+                searchBusPage.ClickGetDate(date);
                 Thread.Sleep(5000);
+                //string? date = excelData?.Date;
+                //Console.WriteLine($"Date: {date}");
+                //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                //js.ExecuteScript("arguments[0].innerText = " + excelData.Date + " ;", searchBusPage.Date);
+
+                //string? month = excelData?.Month;
+                //Console.WriteLine($"Month: {month}");
+                //js.ExecuteScript("arguments[0].innerText = '" + excelData.Month + "' ;", searchBusPage.Month);
+
+                //string? year = excelData?.Year;
+                //Console.WriteLine($"Year: {year}");
+                //js.ExecuteScript("arguments[0].innerText = " + excelData.Year + " ;", searchBusPage.Year);
+                //Thread.Sleep(5000);
+
+                var displayBusListsFilterPage = searchBusPage.ClickSearchButton();
+
+                Thread.Sleep(5000);
+
+                displayBusListsFilterPage.ClickAC();
+                displayBusListsFilterPage.ClickSeatType();
+                displayBusListsFilterPage.ClickSelectSeatButton();
+                Thread.Sleep(5000);
+                string? seatposition = excelData.SeatPosition;
+                Console.WriteLine($"Seat position: {seatposition}");
+                ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[1]/div")));
+                displayBusListsFilterPage.ClickParticularSeat(seatposition);
+                //displayBusListsFilterPage.ClickParticularSeat();
+
+                string seat=driver.FindElement(By.XPath("//div[@class='makeAbsolute']/div/li/span")).GetAttribute("data-testid");
+                Console.WriteLine(seat);
+                if (seat.Contains("unavailable"))
+                {
+                    Console.WriteLine("Particular seat not available");
+                }
+                Thread.Sleep(5000);
+                ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]")));
+                displayBusListsFilterPage.ClickPickUpPoint();
+                Thread.Sleep(5000);
+                ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]")));
+                displayBusListsFilterPage.ClickDropPoint();
+                Thread.Sleep(5000);
+
+                ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[3]")));
+                Thread.Sleep(5000);
+                var passengerDetailsPage = displayBusListsFilterPage.ClickContinueButton();
+
+                Thread.Sleep(5000);
+                string? sheetName1 = "PassengerDetails";
+
+                passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName1);
+
+                foreach (var excelData1 in passengerDataList)
+                {
+                    string? name = excelData1?.Name;
+                    Console.WriteLine($"First name: {name}");
+                    passengerDetailsPage.ClickNameInput(name);
+
+                    string? age = excelData1?.Age;
+                    Console.WriteLine($"Last name: {age}");
+                    passengerDetailsPage.ClickAgeInput(age);
+
+
+                    passengerDetailsPage.ClickGender();
+                    passengerDetailsPage.ClickStateDropDown();
+                    Thread.Sleep(5000);
+                    passengerDetailsPage.ClickParticularState();
+                    Thread.Sleep(5000);
+                    passengerDetailsPage.ClickConfirmAndSaveCheckBox();
+
+                    string? email = excelData1?.Email;
+                    Console.WriteLine($"Email: {email}");
+                    passengerDetailsPage.ClickEmailInput(email);
+
+
+                    string? mobilenumber = excelData1?.MobileNumber;
+                    Console.WriteLine($"Mobile Number: {mobilenumber}");
+                    passengerDetailsPage.ClickMobileNumberInput(mobilenumber);
+
+
+                    passengerDetailsPage.ClickSecureTripCheckbox();
+
+                    var paymentPage = passengerDetailsPage.ClickContinueButton();
+                    Thread.Sleep(7000);
+                    paymentPage.ClickUpiOption();
+                    Thread.Sleep(5000);
+
+                    string? upiId = excelData1?.UpiId;
+                    Console.WriteLine($"Upi Id: {upiId}");
+                    paymentPage.ClickUpiIdInput(upiId);
+                    Thread.Sleep(5000);
+
+                    paymentPage.ClickVerifyAndPayButton();
+                    Thread.Sleep(5000);
+                    paymentPage.ClickCancelButton();
+                }
             }
-            var displayBusListsFilterPage = searchBusPage.ClickSearchButton();
-
-            Thread.Sleep(5000);
-
-            displayBusListsFilterPage.ClickAC();
-            displayBusListsFilterPage.ClickSeatType();
-            displayBusListsFilterPage.ClickSelectSeatButton();
-            Thread.Sleep(5000);
-            displayBusListsFilterPage.ClickParticularSeat();
-            Thread.Sleep(5000);
-            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]")));
-            displayBusListsFilterPage.ClickPickUpPoint();
-            Thread.Sleep(5000);
-            //ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[2]/ul/li[1]")));
-            displayBusListsFilterPage.ClickDropPoint();
-            Thread.Sleep(5000);
-
-            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[3]")));
-            var passengerDetailsPage=displayBusListsFilterPage.ClickContinueButton();
-            Thread.Sleep(5000);
-            string? sheetName1 = "PassengerDetails";
-
-            passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName1);
-
-            foreach (var excelData1 in passengerDataList)
-            {
-                string? name = excelData1?.Name;
-                Console.WriteLine($"First name: {name}");
-                passengerDetailsPage.ClickNameInput(name);
-
-                string? age = excelData1?.Age;
-                Console.WriteLine($"Last name: {age}");
-                passengerDetailsPage.ClickAgeInput(age);
-                
-
-                passengerDetailsPage.ClickGender();
-                passengerDetailsPage.ClickStateDropDown();
-                passengerDetailsPage.ClickConfirmAndSaveCheckBox();
-
-                string? email = excelData1?.Email;
-                Console.WriteLine($"Email: {email}");
-                passengerDetailsPage.ClickEmailInput(email);
-                
-
-                string? mobilenumber = excelData1?.MobileNumber;
-                Console.WriteLine($"Mobile Number: {mobilenumber}");
-                passengerDetailsPage.ClickMobileNumberInput(mobilenumber);
-                
-
-                passengerDetailsPage.ClickSecureTripCheckbox();
-
-                var paymentPage = passengerDetailsPage.ClickContinueButton();
-                Thread.Sleep(5000);
-                paymentPage.ClickUpiOption();
-                Thread.Sleep(5000);
-
-                string? upiId = excelData1?.UpiId;
-                Console.WriteLine($"Upi Id: {upiId}");
-                paymentPage.ClickUpiIdInput(upiId);
-                Thread.Sleep(5000);
-
-                paymentPage.ClickVerifyAndPayButton();
-                Thread.Sleep(5000);
-                paymentPage.ClickCancelButton();
-            }
-            
         }
     }
 }
