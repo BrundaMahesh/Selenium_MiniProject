@@ -46,8 +46,6 @@ namespace MakeMyTripBus.TestScripts
         [Test, Order(2), Category("Smoke Testing")]
         public void CareersOptionCheck()
         {
-            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-
             ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
@@ -69,28 +67,27 @@ namespace MakeMyTripBus.TestScripts
         }
 
         [Test, Order(3), Category("Smoke Testing")]
-        public void CareersJobOptionCheck()
+        public void CareersJobPageCheck()
         {
-            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
 
-            ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-            executor.ExecuteScript("arguments[0].click();", element);
-            try
-            {
-                Assert.That(driver.Url.Contains("careers"));
-                Log.Information("Test passed for Careers option Clicking");
-                test = extent.CreateTest("Careers Option Page Loading");
-                test.Pass("Careers Option Page Loaded Successfully");
-            }
-            catch (AssertionException ex)
-            {
-                Log.Error($"Test failed for Careers option Clicking. \n Exception: {ex.Message}");
-                test = extent.CreateTest("Careers Option Page Loading");
-                test.Fail("Careers Option Page Loading failed");
-            }
+            //ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
+            //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            //IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
+            //IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+            //executor.ExecuteScript("arguments[0].click();", element);
+            //try
+            //{
+            //    Assert.That(driver.Url.Contains("job"));
+            //    Log.Information("Test passed for Job button Clicking");
+            //    test = extent.CreateTest("Careers Option Page Loading");
+            //    test.Pass("Careers Option Page Loaded Successfully");
+            //}
+            //catch (AssertionException ex)
+            //{
+            //    Log.Error($"Test failed for Careers option Clicking. \n Exception: {ex.Message}");
+            //    test = extent.CreateTest("Careers Option Page Loading");
+            //    test.Fail("Careers Option Page Loading failed");
+            //}
         }
     }
 }
