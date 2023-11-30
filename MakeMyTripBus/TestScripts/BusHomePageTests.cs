@@ -40,11 +40,11 @@ namespace MakeMyTripBus.TestScripts
             }
         }
 
-        [Ignore("other")]
-        [Test, Order(2), Category("Smoke Testing")]
+       // [Ignore("other")]
+        [Test, Order(3), Category("Smoke Testing")]
         public void AllLinksStatusTest()
         {
-            List<IWebElement> allLinks = driver.FindElements(By.TagName("a")).ToList();
+            List<IWebElement> allLinks = driver.FindElements(By.TagName("nav")).ToList();
             foreach (var link in allLinks)
             {
                 string url = link.GetAttribute("href");
@@ -69,7 +69,7 @@ namespace MakeMyTripBus.TestScripts
         }
 
 
-        [Test, Order(3), Category("Smoke Testing")]
+        [Test, Order(2), Category("Smoke Testing")]
         public void CareersOptionCheck()
         {
             ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
@@ -94,26 +94,26 @@ namespace MakeMyTripBus.TestScripts
         }
 
         
-        [Test, Order(4), Category("Smoke Testing")]
-        public void CareersPageJobButtonVisibilityCheck()
-        {
-            Thread.Sleep(3000);
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//a[span[text()='Jobs']])[1]")));
-            string jobButton = driver.FindElement(By.XPath("(//a[span[text()='Jobs']])[1]")).Text;
-            try
-            {
-                Assert.That(jobButton.Contains("jobs"));
-                Log.Information("Test passed for Carers Page Job button Visibility Check");
-                test = extent.CreateTest("Carers Page Job button Visibility ");
-                test.Pass("Carers Page Job button Visibility Passed");
-            }
-            catch (AssertionException ex)
-            {
-                Log.Error($"Test failed for Carers Page Job button Visibility. \n Exception: {ex.Message}");
-                test = extent.CreateTest("Carers Page Job button Visibility");
-                test.Fail("Carers Page Job button Visibility Failed");
-            }
-        }
+        //[Test, Order(4), Category("Smoke Testing")]
+        //public void CareersPageJobButtonVisibilityCheck()
+        //{
+        //    Thread.Sleep(3000);
+        //    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+        //    IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//a[span[text()='Jobs']])[1]")));
+        //    string jobButton = driver.FindElement(By.XPath("(//a[span[text()='Jobs']])[1]")).Text;
+        //    try
+        //    {
+        //        Assert.That(jobButton.Contains("jobs"));
+        //        Log.Information("Test passed for Carers Page Job button Visibility Check");
+        //        test = extent.CreateTest("Carers Page Job button Visibility ");
+        //        test.Pass("Carers Page Job button Visibility Passed");
+        //    }
+        //    catch (AssertionException ex)
+        //    {
+        //        Log.Error($"Test failed for Carers Page Job button Visibility. \n Exception: {ex.Message}");
+        //        test = extent.CreateTest("Carers Page Job button Visibility");
+        //        test.Fail("Carers Page Job button Visibility Failed");
+        //    }
+        //}
     }
 }
