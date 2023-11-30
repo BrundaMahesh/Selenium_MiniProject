@@ -37,7 +37,9 @@ namespace MakeMyTripBus.TestScripts
             }
             Log.Information("User bus ticket booking test started");
 
-            //driver.Navigate().GoToUrl("https://www.makemytrip.com/");
+            IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+            executor.ExecuteScript("arguments[0].click();", element);
 
 
             var searchBusPage = homePage.ClickBusesOption();
@@ -89,22 +91,9 @@ namespace MakeMyTripBus.TestScripts
                 Console.WriteLine($"date: {date}");
                 searchBusPage.ClickGetDate(date);
                 Thread.Sleep(5000);
-                //string? date = excelData?.Date;
-                //Console.WriteLine($"Date: {date}");
-                //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-                //js.ExecuteScript("arguments[0].innerText = " + excelData.Date + " ;", searchBusPage.Date);
-
-                //string? month = excelData?.Month;
-                //Console.WriteLine($"Month: {month}");
-                //js.ExecuteScript("arguments[0].innerText = '" + excelData.Month + "' ;", searchBusPage.Month);
-
-                //string? year = excelData?.Year;
-                //Console.WriteLine($"Year: {year}");
-                //js.ExecuteScript("arguments[0].innerText = " + excelData.Year + " ;", searchBusPage.Year);
-                //Thread.Sleep(5000);
+                
 
                 var displayBusListsFilterPage = searchBusPage.ClickSearchButton();
-
                 Thread.Sleep(5000);
 
                 displayBusListsFilterPage.ClickAC();
@@ -122,6 +111,7 @@ namespace MakeMyTripBus.TestScripts
                 if (seat.Contains("unavailable"))
                 {
                     Console.WriteLine("Particular seat not available");
+                    driver.Close();
                 }
                 Thread.Sleep(5000);
                 ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]")));

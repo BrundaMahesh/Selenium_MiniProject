@@ -28,6 +28,9 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "//li[@class='menu_Buses']")]
         public IWebElement? BusesOption { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//a[text()='Careers']")]
+        public IWebElement? CareersOption { get; set; }
+
         //Act
         public void ClickSignInPopup()
         {
@@ -35,7 +38,7 @@ namespace MakeMyTripBus.PageObjects
             fluentWait.Timeout = TimeSpan.FromSeconds(10);
             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Until(d => LogoCheck.Displayed);
+            fluentWait.Until(d => SignInPopup.Displayed);
             SignInPopup?.Click();
         }
 
@@ -47,6 +50,11 @@ namespace MakeMyTripBus.PageObjects
         {
            BusesOption?.Click();
            return new BusPage(driver);
+        }
+        public CareersOptionPage ClickCareersOption()
+        {
+            CareersOption?.Click();
+            return new CareersOptionPage(driver);
         }
     }
 }
