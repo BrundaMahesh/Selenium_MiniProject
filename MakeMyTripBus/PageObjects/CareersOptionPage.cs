@@ -1,5 +1,4 @@
-﻿using MakeMyTripBus.PageObjects;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MakeMyTripBus
+namespace MakeMyTripBus.PageObjects
 {
     internal class CareersOptionPage
     {
@@ -17,13 +16,9 @@ namespace MakeMyTripBus
             this.driver = driver ?? throw new ArgumentException(nameof(driver));
             PageFactory.InitElements(driver, this);
         }
-        [FindsBy(How = How.XPath, Using = "//a[contains(@href,'/prod/jobs')]")]
+        [FindsBy(How = How.XPath, Using = "(//a[span[text()='Jobs']])[1]")]
         private IWebElement? JobButton { get; }
 
-        public CareersJobsPage ClickJobButton()
-        {
-            JobButton?.Click();
-            return new CareersJobsPage(driver);
-        }
+        
     }
 }

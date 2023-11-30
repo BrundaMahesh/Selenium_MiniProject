@@ -34,12 +34,14 @@ namespace MakeMyTripBus.PageObjects
         //Act
         public void ClickSignInPopup()
         {
-            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(10);
-            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Until(d => SignInPopup.Displayed);
-            SignInPopup?.Click();
+            //DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+            //fluentWait.Timeout = TimeSpan.FromSeconds(10);
+            //fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            //fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            //fluentWait.Until(d => SignInPopup.Displayed);
+            //SignInPopup?.Click();
+            //((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", SignInPopup);
+           
         }
 
         public void ClickLogoCheck()

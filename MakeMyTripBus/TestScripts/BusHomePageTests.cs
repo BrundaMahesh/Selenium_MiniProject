@@ -21,10 +21,9 @@ namespace MakeMyTripBus.TestScripts
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
         
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div")));
+            IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
             IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
             executor.ExecuteScript("arguments[0].click();", element);
-
             makeMyTripHomePage.ClickLogoCheck();
             try
             {
@@ -41,9 +40,36 @@ namespace MakeMyTripBus.TestScripts
             }
         }
 
-
-
+        [Ignore("other")]
         [Test, Order(2), Category("Smoke Testing")]
+        public void AllLinksStatusTest()
+        {
+            List<IWebElement> allLinks = driver.FindElements(By.TagName("a")).ToList();
+            foreach (var link in allLinks)
+            {
+                string url = link.GetAttribute("href");
+                if (url == null)
+                {
+                    Console.WriteLine("URL is null");
+                    continue;
+                }
+                else
+                {
+                    bool isWorking = CheckLinkStatus(url);
+                    if (isWorking)
+                    {
+                        Console.WriteLine(url + " is working");
+                    }
+                    else
+                    {
+                        Console.WriteLine(url + " is not working");
+                    }
+                }
+            }
+        }
+
+
+        [Test, Order(3), Category("Smoke Testing")]
         public void CareersOptionCheck()
         {
             ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
@@ -51,6 +77,7 @@ namespace MakeMyTripBus.TestScripts
             IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
             IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
             executor.ExecuteScript("arguments[0].click();", element);
+
             try
             {
                 Assert.That(driver.Url.Contains("careers"));
@@ -66,28 +93,27 @@ namespace MakeMyTripBus.TestScripts
             }
         }
 
-        [Test, Order(3), Category("Smoke Testing")]
-        public void CareersJobPageCheck()
+        
+        [Test, Order(4), Category("Smoke Testing")]
+        public void CareersPageJobButtonVisibilityCheck()
         {
-
-            //ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
-            //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            //IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
-            //IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-            //executor.ExecuteScript("arguments[0].click();", element);
-            //try
-            //{
-            //    Assert.That(driver.Url.Contains("job"));
-            //    Log.Information("Test passed for Job button Clicking");
-            //    test = extent.CreateTest("Careers Option Page Loading");
-            //    test.Pass("Careers Option Page Loaded Successfully");
-            //}
-            //catch (AssertionException ex)
-            //{
-            //    Log.Error($"Test failed for Careers option Clicking. \n Exception: {ex.Message}");
-            //    test = extent.CreateTest("Careers Option Page Loading");
-            //    test.Fail("Careers Option Page Loading failed");
-            //}
+            Thread.Sleep(3000);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//a[span[text()='Jobs']])[1]")));
+            string jobButton = driver.FindElement(By.XPath("(//a[span[text()='Jobs']])[1]")).Text;
+            try
+            {
+                Assert.That(jobButton.Contains("jobs"));
+                Log.Information("Test passed for Carers Page Job button Visibility Check");
+                test = extent.CreateTest("Carers Page Job button Visibility ");
+                test.Pass("Carers Page Job button Visibility Passed");
+            }
+            catch (AssertionException ex)
+            {
+                Log.Error($"Test failed for Carers Page Job button Visibility. \n Exception: {ex.Message}");
+                test = extent.CreateTest("Carers Page Job button Visibility");
+                test.Fail("Carers Page Job button Visibility Failed");
+            }
         }
     }
 }

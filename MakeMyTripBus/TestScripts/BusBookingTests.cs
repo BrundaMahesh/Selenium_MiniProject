@@ -40,11 +40,14 @@ namespace MakeMyTripBus.TestScripts
             IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
             IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
             executor.ExecuteScript("arguments[0].click();", element);
+            Log.Information("Sign up pop closed");
 
 
             var searchBusPage = homePage.ClickBusesOption();
+            Log.Information("Bus Option clicked");
+
             try
-            {
+            { 
                 Assert.That(driver.Url.Contains("bus"));
                 Log.Information("Test passed for Bus Option Clicking");
                 test = extent.CreateTest("Bus Page Loading");
@@ -69,11 +72,14 @@ namespace MakeMyTripBus.TestScripts
                 
                 string? fromInput = excelData?.FromInput;
                 searchBusPage.ClickOnFromInput();
+                Log.Information("Clicked from input box");
                 Thread.Sleep(3000);
                 Console.WriteLine($"From Input: {fromInput}");
                 searchBusPage.ClickFromInput(fromInput);
+                Log.Information("Entered from input");
                 Thread.Sleep(2000);
                 searchBusPage.ClickOnSelectFromInput();
+                Log.Information("Selected particular entered city from the drop down");
                 Thread.Sleep(2000);
 
 
@@ -83,13 +89,16 @@ namespace MakeMyTripBus.TestScripts
                 Thread.Sleep(3000);*/
 
                 searchBusPage.ClickToInputText(toInput);
+                Log.Information("Clicked To input box and entered To input");
                 Thread.Sleep(3000);
                 searchBusPage.ClickOnSelectToInput();
+                Log.Information("Selected particular entered city from the drop down");
                 Thread.Sleep(5000);
 
                 string? date = excelData.Date;
                 Console.WriteLine($"date: {date}");
                 searchBusPage.ClickGetDate(date);
+                Log.Information("Selected particular date");
                 Thread.Sleep(5000);
                 
 
