@@ -32,11 +32,7 @@ namespace MakeMyTripBus.PageObjects
 
         public void ClickUpiOption()
         {
-            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(50);
-            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Until(d => UpiOption?.Displayed);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
             UpiOption?.Click();
         }
         public void ClickUpiIdInput(string upiInput)

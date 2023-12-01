@@ -55,21 +55,21 @@ namespace MakeMyTripBus.TestScripts
                 Log.Information("Clicked from input box");
                 Console.WriteLine($"From Input: {fromInput}");
                 searchBusPage.ClickFromInput(fromInput);
-                Thread.Sleep(1000);
+                Thread.Sleep(3000);
                 Log.Information("Entered from input");
                 searchBusPage.ClickOnSelectFromInput();
                 Log.Information("Selected particular entered city from the drop down");
-                Thread.Sleep(1000);
-                //I tried all waits in the "From" location case.So, I added this Thread.Sleep(1000);
+                Thread.Sleep(5000);
+                //I tried all waits in the "From" location case it's not working.So, I added this Thread.Sleep(1000);
 
                 string? toInput = excelData?.ToInput;
                 searchBusPage.ClickToInputText(toInput);
                 Thread.Sleep(1000);
                 Log.Information("Clicked To input box and entered To input");
                 searchBusPage.ClickOnSelectToInput();
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
                 Log.Information("Selected particular entered city from the drop down");
-                //I tried all waits in the "To" location case.So, I added this Thread.Sleep(1000);
+                //I tried all waits in the "To" location case it's not working.So, I added this Thread.Sleep(1000);
 
                 string? date = excelData.Date;
                 Console.WriteLine($"date: {date}");
