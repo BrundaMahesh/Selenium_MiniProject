@@ -19,11 +19,12 @@ namespace MakeMyTripBus.TestScripts
         public void MakeMyTripLogoCheck()
         {
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-        
+
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
             IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
             executor.ExecuteScript("arguments[0].click();", element);
+           
             makeMyTripHomePage.ClickLogoCheck();
             try
             {
@@ -41,7 +42,7 @@ namespace MakeMyTripBus.TestScripts
         }
 
        [Ignore("other")]
-        [Test, Order(3), Category("Smoke Testing")]
+        [Test, Order(4), Category("Smoke Testing")]
         public void AllLinksStatusTest()
         {
             List<IWebElement> allLinks = driver.FindElements(By.TagName("a")).ToList();
@@ -69,7 +70,7 @@ namespace MakeMyTripBus.TestScripts
         }
 
 
-        [Test, Order(2), Category("Smoke Testing")]
+        [Test, Order(3), Category("Smoke Testing")]
         public void CareersOptionCheck()
         {
             ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
@@ -93,27 +94,39 @@ namespace MakeMyTripBus.TestScripts
             }
         }
 
-        
-        //[Test, Order(4), Category("Smoke Testing")]
-        //public void CareersPageJobButtonVisibilityCheck()
-        //{
-        //    Thread.Sleep(3000);
-        //    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-        //    IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//a[span[text()='Jobs']])[1]")));
-        //    string jobButton = driver.FindElement(By.XPath("(//a[span[text()='Jobs']])[1]")).Text;
-        //    try
-        //    {
-        //        Assert.That(jobButton.Contains("jobs"));
-        //        Log.Information("Test passed for Carers Page Job button Visibility Check");
-        //        test = extent.CreateTest("Carers Page Job button Visibility ");
-        //        test.Pass("Carers Page Job button Visibility Passed");
-        //    }
-        //    catch (AssertionException ex)
-        //    {
-        //        Log.Error($"Test failed for Carers Page Job button Visibility. \n Exception: {ex.Message}");
-        //        test = extent.CreateTest("Carers Page Job button Visibility");
-        //        test.Fail("Carers Page Job button Visibility Failed");
-        //    }
-        //}
+
+        [Test, Order(2), Category("Smoke Testing")]
+        public void LoginTest()
+        {
+            string? currDir = Directory.GetParent(@"../../../").FullName;
+            string? logfilePath = currDir + "/Logs/log_" + DateTime.Now.ToString("yyyy.mm.dd_HH.mm.ss") + ".txt";
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.File(logfilePath, rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            LoginPage loginpage = new LoginPage(driver);
+            //driver.Navigate().GoToUrl("https://www.abhibus.com/bus-ticket-offers");
+            Thread.Sleep(4000);
+            fluentwait.Until(d => loginpage);
+            loginpage.ClickLogin();
+            try
+            {
+
+                IWebElement error = driver.FindElement(By.XPath("//span[text()='Sorry! Referral code is incorrect']"));
+                string? errortext = error.Text;
+                TakeScreenShot();
+                Assert.That(errortext, Does.Contain("Sorry! Referral code is incorrect"));
+
+                LogTestResult("Login Test", "Login Test - Success");
+                test = extent.CreateTest("Login Test - Passed");
+                test.Pass("Login Test Success");
+            }
+            catch (AssertionException ex)
+            {
+                TakeScreenShot();
+                LogTestResult("Login Test", "Login Test - Success", ex.Message);
+                test.Fail("Offers Test Failed");
+            }
+        }
     }
 }

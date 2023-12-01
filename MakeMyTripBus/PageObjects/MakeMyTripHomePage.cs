@@ -20,7 +20,7 @@ namespace MakeMyTripBus.PageObjects
 
         //Arrange
         [FindsBy(How = How.XPath, Using = "//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div")]
-        private IWebElement? SignInPopup { get;  }
+        private IWebElement? SignInPopup { get; set; }
 
        [FindsBy(How = How.XPath, Using = "//a[@class='mmtLogo makeFlex']")]
         public IWebElement? LogoCheck { get; set; }
@@ -34,14 +34,13 @@ namespace MakeMyTripBus.PageObjects
         //Act
         public void ClickSignInPopup()
         {
-            //DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            //fluentWait.Timeout = TimeSpan.FromSeconds(10);
-            //fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            //fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            //fluentWait.Until(d => SignInPopup.Displayed);
-            //SignInPopup?.Click();
-            //((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", SignInPopup);
-           
+            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+            fluentWait.Timeout = TimeSpan.FromSeconds(10);
+            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            fluentWait.Until(d => SignInPopup.Displayed);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", SignInPopup);
+
         }
 
         public void ClickLogoCheck()
@@ -50,11 +49,11 @@ namespace MakeMyTripBus.PageObjects
         }
         public BusPage ClickBusesOption()
         {
-            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+            DefaultWait<IWebDriver?> fluentWait = new DefaultWait<IWebDriver?>(driver);
             fluentWait.Timeout = TimeSpan.FromSeconds(20);
             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Until(d => BusesOption.Displayed);
+            fluentWait.Until(d => BusesOption?.Displayed);
             BusesOption?.Click();
             return new BusPage(driver);
         }

@@ -20,6 +20,7 @@ namespace MakeMyTripBus.TestScripts
         [Test, Category("End to End Testing")] 
         public void UserBusTicketBookingTest()
         {
+           
             string? currdir = Directory.GetParent(@"../../../")?.FullName;
             string? logfilepath = currdir + "/Logs/log_" +
                 DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
@@ -38,11 +39,11 @@ namespace MakeMyTripBus.TestScripts
             }
             Log.Information("User bus ticket booking test started");
 
-            IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-            executor.ExecuteScript("arguments[0].click();", element);
-            Log.Information("Sign up pop closed");
-
+            //IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
+            //IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+            //executor.ExecuteScript("arguments[0].click();", element);
+            //Log.Information("Sign up pop closed");
+            homePage.ClickSignInPopup();
 
             var searchBusPage = homePage.ClickBusesOption();
             Log.Information("Bus Option clicked");
