@@ -15,11 +15,21 @@ namespace MakeMyTripBus.TestScripts
     [TestFixture]
     internal class BusHomePageTests:CoreCodes
     {
+        List<BookBusData>? excelDataList;
+
         [Test,Order(1),Category("Smoke Testing")]
         public void MakeMyTripLogoCheck()
         {
-            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
+            string? currdir = Directory.GetParent(@"../../../")?.FullName;
+            string? logfilepath = currdir + "/Logs/Logochecklog_" +
+                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
 
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+
+            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
             IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
@@ -73,6 +83,15 @@ namespace MakeMyTripBus.TestScripts
         [Test, Order(3), Category("Smoke Testing")]
         public void CareersOptionCheck()
         {
+            string? currdir = Directory.GetParent(@"../../../")?.FullName;
+            string? logfilepath = currdir + "/Logs/Careeroptionchecklog_" +
+                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+
             ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
@@ -94,28 +113,43 @@ namespace MakeMyTripBus.TestScripts
             }
         }
 
+        
 
         [Test, Order(2), Category("Smoke Testing")]
         public void LoginTest()
         {
-            string? currDir = Directory.GetParent(@"../../../").FullName;
-            string? logfilePath = currDir + "/Logs/log_" + DateTime.Now.ToString("yyyy.mm.dd_HH.mm.ss") + ".txt";
+            string? currdir = Directory.GetParent(@"../../../")?.FullName;
+            string? logfilepath = currdir + "/Logs/Logintestlog_" +
+                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .WriteTo.File(logfilePath, rollingInterval: RollingInterval.Day)
-                .CreateLogger();
-            LoginPage loginpage = new LoginPage(driver);
-            //driver.Navigate().GoToUrl("https://www.abhibus.com/bus-ticket-offers");
-            Thread.Sleep(4000);
-            fluentwait.Until(d => loginpage);
-            loginpage.ClickLogin();
+            .WriteTo.Console()
+            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
+            
+             makeMyTripHomePage.ClickLoginButton();
+
+            string? currDir = Directory.GetParent(@"../../../")?.FullName;
+            string? excelFilePath = currDir + "/TestData/InputData.xlsx";
+            string? sheetName = "Bus";
+
+            excelDataList = BookBusUtils.ReadExcelData(excelFilePath, sheetName);
+
+            foreach (var excelData in excelDataList)
+            {
+                string? mobilenumber = excelData.MobileNumber;
+                Console.WriteLine($"mobile number: {mobilenumber}");
+                makeMyTripHomePage.ClickLoginInput(mobilenumber);
+                Log.Information("Entered mobile number");
+            }
+            makeMyTripHomePage.ClickContinueButton();
             try
             {
-
-                IWebElement error = driver.FindElement(By.XPath("//span[text()='Sorry! Referral code is incorrect']"));
+                IWebElement error = driver.FindElement(By.XPath("//span[text()='Invalid phone number']"));
                 string? errortext = error.Text;
                 TakeScreenShot();
-                Assert.That(errortext, Does.Contain("Sorry! Referral code is incorrect"));
+                Assert.That(errortext, Does.Contain("Invalid phone number"));
 
                 LogTestResult("Login Test", "Login Test - Success");
                 test = extent.CreateTest("Login Test - Passed");
@@ -125,7 +159,7 @@ namespace MakeMyTripBus.TestScripts
             {
                 TakeScreenShot();
                 LogTestResult("Login Test", "Login Test - Success", ex.Message);
-                test.Fail("Offers Test Failed");
+                test.Fail("Login Test Failed");
             }
         }
     }

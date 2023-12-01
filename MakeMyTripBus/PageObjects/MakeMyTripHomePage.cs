@@ -31,6 +31,14 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "//a[text()='Careers']")]
         public IWebElement? CareersOption { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//p[@data-cy='LoginHeaderText']")]
+        public IWebElement? LoginButton { get; set; }
+
+        [FindsBy(How = How.Id, Using = "username")]
+        public IWebElement? LoginInput { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@class='capText font16']")]
+        public IWebElement? ContinueButton { get; set; }
         //Act
         public void ClickSignInPopup()
         {
@@ -62,5 +70,21 @@ namespace MakeMyTripBus.PageObjects
             CareersOption?.Click();
             return new CareersOptionPage(driver);
         }
+
+
+        public void ClickLoginButton()
+        {
+            LoginButton?.Click();
+        }
+        public void ClickLoginInput(string number)
+        {
+            LoginInput?.SendKeys(number);
+            LoginInput?.SendKeys(Keys.Enter);
+        }
+        public void ClickContinueButton()
+        {
+            ContinueButton?.Click();
+        }
+
     }
 }
