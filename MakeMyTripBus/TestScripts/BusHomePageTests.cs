@@ -1,5 +1,6 @@
 ﻿using MakeMyTripBus.PageObjects;
 using MakeMyTripBus.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -15,8 +16,7 @@ namespace MakeMyTripBus.TestScripts
     [TestFixture]
     internal class BusHomePageTests:CoreCodes
     {
-        List<BookBusData>? excelDataList;
-
+        
         [Test,Order(1),Category("Smoke Testing")]
         public void MakeMyTripLogoCheck()
         {
@@ -29,15 +29,18 @@ namespace MakeMyTripBus.TestScripts
             .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
+            Log.Information("Make my trip logo check test started");
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-            executor.ExecuteScript("arguments[0].click();", element);
-           
+            IWebElement? element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
+            IJavaScriptExecutor? executor = (IJavaScriptExecutor)driver;
+            executor?.ExecuteScript("arguments[0].click();", element);
+            Log.Information("Closed Sign in popup");
             makeMyTripHomePage.ClickLogoCheck();
+            Log.Information("Make my trip logo clicked");
             try
             {
+                TakeScreenShot();
                 Assert.That(driver.Url.Contains("makemytrip"));
                 Log.Information("Test passed for Make my trip logo Clicking");
                 test = extent.CreateTest("Make My Trip Page Loading");
@@ -51,7 +54,77 @@ namespace MakeMyTripBus.TestScripts
             }
         }
 
-       [Ignore("other")]
+        [Test, Order(2), Category("Smoke Testing")]
+        public void TripMoneyOrderButtonCheck()
+        {
+            string? currdir = Directory.GetParent(@"../../../")?.FullName;
+            string? logfilepath = currdir + "/Logs/OrderButtonchecklog_" +
+                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+
+            Log.Information("Trip Money order button check test started");
+            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a")));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a")));
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+            executor.ExecuteScript("arguments[0].click();", element);
+            Log.Information("Order Now button clicked");
+            try
+            {
+                TakeScreenShot();
+                Assert.That(driver.Url.Contains("tripmoney"));
+                Log.Information("Test passed for Trip Money Order button option Clicking");
+                test = extent.CreateTest("Trip Money Page Loading");
+                test.Pass("Trip Money Page Loaded Successfully");
+            }
+            catch (AssertionException ex)
+            {
+                Log.Error($"Test failed for Trip Money Order button option Clicking. \n Exception: {ex.Message}");
+                test = extent.CreateTest("Trip Money Page Loading");
+                test.Fail("Trip Money Page Loading failed");
+            }
+        }
+        [Test, Order(3), Category("Smoke Testing")]
+        public void CareersOptionCheck()
+        {
+            driver.Navigate().GoToUrl("https://www.makemytrip.com/");
+            string? currdir = Directory.GetParent(@"../../../")?.FullName;
+            string? logfilepath = currdir + "/Logs/Careeroptionchecklog_" +
+                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+
+            Log.Information("Careers option check test started");
+            ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+            executor.ExecuteScript("arguments[0].click();", element);
+            Log.Information("Careers option clicked");
+
+            try
+            {
+                TakeScreenShot();
+                Assert.That(driver.Url.Contains("careers"));
+                Log.Information("Test passed for Careers option Clicking");
+                test = extent.CreateTest("Careers Option Page Loading");
+                test.Pass("Careers Option Page Loaded Successfully");
+            }
+            catch (AssertionException ex)
+            {
+                Log.Error($"Test failed for Careers option Clicking. \n Exception: {ex.Message}");
+                test = extent.CreateTest("Careers Option Page Loading");
+                test.Fail("Careers Option Page Loading failed");
+            }
+        }
+        [Ignore("All link tests")]
         [Test, Order(4), Category("Smoke Testing")]
         public void AllLinksStatusTest()
         {
@@ -80,89 +153,10 @@ namespace MakeMyTripBus.TestScripts
         }
 
 
-        [Test, Order(3), Category("Smoke Testing")]
-        public void CareersOptionCheck()
-        {
-            string? currdir = Directory.GetParent(@"../../../")?.FullName;
-            string? logfilepath = currdir + "/Logs/Careeroptionchecklog_" +
-                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
-
-            Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
-            .CreateLogger();
-
-            ScrollIntoView(driver, driver.FindElement(By.XPath("//a[text()='Careers']")));
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='Careers']")));
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-            executor.ExecuteScript("arguments[0].click();", element);
-
-            try
-            {
-                Assert.That(driver.Url.Contains("careers"));
-                Log.Information("Test passed for Careers option Clicking");
-                test = extent.CreateTest("Careers Option Page Loading");
-                test.Pass("Careers Option Page Loaded Successfully");
-            }
-            catch (AssertionException ex)
-            {
-                Log.Error($"Test failed for Careers option Clicking. \n Exception: {ex.Message}");
-                test = extent.CreateTest("Careers Option Page Loading");
-                test.Fail("Careers Option Page Loading failed");
-            }
-        }
+        
 
         
 
-        [Test, Order(2), Category("Smoke Testing")]
-        public void LoginTest()
-        {
-            string? currdir = Directory.GetParent(@"../../../")?.FullName;
-            string? logfilepath = currdir + "/Logs/Logintestlog_" +
-                DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
-
-            Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File(logfilepath, rollingInterval: RollingInterval.Day)
-            .CreateLogger();
-            MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
-            
-            makeMyTripHomePage.ClickLoginButton();
-            
-
-            string? currDir = Directory.GetParent(@"../../../")?.FullName;
-            string? excelFilePath = currDir + "/TestData/InputData.xlsx";
-            string? sheetName = "Bus";
-
-            excelDataList = BookBusUtils.ReadExcelData(excelFilePath, sheetName);
-
-            foreach (var excelData in excelDataList)
-            {
-                string? mobilenumber = excelData.MobileNumber;
-                Console.WriteLine($"mobile number: {mobilenumber}");
-                makeMyTripHomePage.ClickLoginInput(mobilenumber);
-                Log.Information("Entered mobile number");
-            }
-            makeMyTripHomePage.ClickContinueButton();
-            Thread.Sleep(5000);
-            try
-            {
-                IWebElement error = driver.FindElement(By.XPath("//span[text()='Invalid phone number']"));
-                string? errortext = error.Text;
-                TakeScreenShot();
-                Assert.That(errortext, Does.Contain("Invalid phone number"));
-
-                LogTestResult("Login Test", "Login Test - Success");
-                test = extent.CreateTest("Login Test - Passed");
-                test.Pass("Login Test Success");
-            }
-            catch (AssertionException ex)
-            {
-                TakeScreenShot();
-                LogTestResult("Login Test", "Login Test - Success", ex.Message);
-                test.Fail("Login Test Failed");
-            }
-        }
+        
     }
 }

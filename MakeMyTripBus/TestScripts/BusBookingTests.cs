@@ -1,5 +1,6 @@
 ﻿using MakeMyTripBus.PageObjects;
 using MakeMyTripBus.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Serilog;
@@ -22,7 +23,7 @@ namespace MakeMyTripBus.TestScripts
         {
            
             string? currdir = Directory.GetParent(@"../../../")?.FullName;
-            string? logfilepath = currdir + "/Logs/log_" +
+            string? logfilepath = currdir + "/Logs/BusTicketBookinglog_" +
                 DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
 
             Log.Logger = new LoggerConfiguration()
@@ -38,28 +39,18 @@ namespace MakeMyTripBus.TestScripts
                 driver.Navigate().GoToUrl("https://www.makemytrip.com/");
             }
             Log.Information("User bus ticket booking test started");
-
-            //IWebElement element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
-            //IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-            //executor.ExecuteScript("arguments[0].click();", element);
-            //Log.Information("Sign up pop closed");
             homePage.ClickSignInPopup();
 
             var searchBusPage = homePage.ClickBusesOption();
             Log.Information("Bus Option clicked");
-
-            
-            //Thread.Sleep(5000);
 
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string? excelFilePath = currDir + "/TestData/InputData.xlsx";
             string? sheetName = "Bus";
 
             excelDataList = BookBusUtils.ReadExcelData(excelFilePath, sheetName);
-
             foreach (var excelData in excelDataList)
-            {
-                
+            { 
                 string? fromInput = excelData?.FromInput;
                 searchBusPage.ClickOnFromInput();
                 Log.Information("Clicked from input box");
@@ -196,6 +187,7 @@ namespace MakeMyTripBus.TestScripts
                 }
                 try
                 {
+                    TakeScreenShot();
                     Assert.That(driver.Url.Contains("payments"));
                     Log.Information("Test passed for Bus Ticket Booking");
                     test = extent.CreateTest("Bus Ticket Booking");

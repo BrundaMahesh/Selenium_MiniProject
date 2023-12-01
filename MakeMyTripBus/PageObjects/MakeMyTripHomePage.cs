@@ -31,14 +31,9 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "//a[text()='Careers']")]
         public IWebElement? CareersOption { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//p[@data-cy='LoginHeaderText']")]
-        public IWebElement? LoginButton { get; set; }
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a")]
+        public IWebElement? OrderNowButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"username\"]")]
-        public IWebElement? LoginInput { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div/section/form/div[2]/button")]
-        public IWebElement? ContinueButton { get; set; }
         //Act
         public void ClickSignInPopup()
         {
@@ -57,11 +52,6 @@ namespace MakeMyTripBus.PageObjects
         }
         public BusPage ClickBusesOption()
         {
-            DefaultWait<IWebDriver?> fluentWait = new DefaultWait<IWebDriver?>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(20);
-            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Until(d => BusesOption?.Displayed);
             BusesOption?.Click();
             return new BusPage(driver);
         }
@@ -70,34 +60,10 @@ namespace MakeMyTripBus.PageObjects
             CareersOption?.Click();
             return new CareersOptionPage(driver);
         }
-
-
-        public void ClickLoginButton()
-        {
-            
-            LoginButton?.Click();
-        }
-        public void ClickLoginInput(string number)
-        {
-            //DefaultWait<IWebDriver?> fluentWait = new DefaultWait<IWebDriver?>(driver);
-            //fluentWait.Timeout = TimeSpan.FromSeconds(50);
-            //fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            //fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            //fluentWait.Until(d => LoginInput?.Displayed);
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", LoginInput);
-            LoginInput?.SendKeys(number);
-            LoginInput?.SendKeys(Keys.Enter);
-        }
-        public void ClickContinueButton()
-        {
-            //DefaultWait<IWebDriver?> fluentWait = new DefaultWait<IWebDriver?>(driver);
-            //fluentWait.Timeout = TimeSpan.FromSeconds(10);
-            //fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            //fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            //fluentWait.Until(d => ContinueButton?.Displayed);
-            //((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", ContinueButton);
-            ContinueButton?.Click();
-        }
+       public void ClickOrderNowButton()
+       {
+         OrderNowButton?.Click();
+       }
 
     }
 }
