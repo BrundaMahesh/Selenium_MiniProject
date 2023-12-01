@@ -3,6 +3,7 @@ using MakeMyTripBus.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -91,7 +92,6 @@ namespace MakeMyTripBus.TestScripts
                 ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[1]/div")));
                 displayBusListsFilterPage.ClickParticularSeat(seatposition);
                 Log.Information("Selected particular seat");
-                //displayBusListsFilterPage.ClickParticularSeat();
 
                 string seat=driver.FindElement(By.XPath("//div[@class='makeAbsolute']/div/li/span")).GetAttribute("data-testid");
                 Console.WriteLine(seat);
@@ -151,6 +151,8 @@ namespace MakeMyTripBus.TestScripts
 
                     var paymentPage = passengerDetailsPage.ClickContinueButton();
                     Log.Information("Clicked Continue button");
+                    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(100));
+                    IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[starts-with(@class,'payment__option__title font12')]/span[text()='UPI Options']")));
                     paymentPage.ClickUpiOption();
                     Log.Information("Clicked UPI option");
 

@@ -28,9 +28,6 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "//li[@class='menu_Buses']")]
         public IWebElement? BusesOption { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//a[text()='Careers']")]
-        public IWebElement? CareersOption { get; set; }
-
         [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a/span")]
         public IWebElement? OrderNowButton { get; set; }
 
@@ -55,14 +52,17 @@ namespace MakeMyTripBus.PageObjects
             BusesOption?.Click();
             return new BusPage(driver);
         }
-        public CareersOptionPage ClickCareersOption()
-        {
-            CareersOption?.Click();
-            return new CareersOptionPage(driver);
-        }
-       public void ClickOrderNowButton()
+        
+       public TripMoneyPage ClickOrderNowButton()
        {
-         OrderNowButton?.Click();
+            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+            fluentWait.Timeout = TimeSpan.FromSeconds(200);
+            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(200);
+            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            fluentWait.Until(d => OrderNowButton.Displayed);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", OrderNowButton);
+            //OrderNowButton?.Click();
+            return new TripMoneyPage(driver);
        }
 
     }
