@@ -36,8 +36,8 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="ExtentReports\" />
-    <Folder Include="TestData\" />
     <Folder Include="Screenshots\" />
+    <Folder Include="TestData\" />
   </ItemGroup>
 
 </Project>
