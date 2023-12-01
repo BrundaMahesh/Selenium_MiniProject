@@ -31,14 +31,14 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "//a[text()='Careers']")]
         public IWebElement? CareersOption { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a")]
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a/span")]
         public IWebElement? OrderNowButton { get; set; }
 
         //Act
         public void ClickSignInPopup()
         {
             DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(10);
+            fluentWait.Timeout = TimeSpan.FromSeconds(30);
             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             fluentWait.Until(d => SignInPopup.Displayed);

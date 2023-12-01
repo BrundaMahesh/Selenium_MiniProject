@@ -32,7 +32,6 @@ namespace MakeMyTripBus.TestScripts
             .CreateLogger();
 
 
-
             var homePage = new MakeMyTripHomePage(driver);
             if (!driver.Url.Contains("https://www.makemytrip.com/"))
             {
@@ -54,46 +53,39 @@ namespace MakeMyTripBus.TestScripts
                 string? fromInput = excelData?.FromInput;
                 searchBusPage.ClickOnFromInput();
                 Log.Information("Clicked from input box");
-                Thread.Sleep(3000);
                 Console.WriteLine($"From Input: {fromInput}");
                 searchBusPage.ClickFromInput(fromInput);
+                Thread.Sleep(1000);
                 Log.Information("Entered from input");
-                Thread.Sleep(2000);
                 searchBusPage.ClickOnSelectFromInput();
                 Log.Information("Selected particular entered city from the drop down");
-                Thread.Sleep(2000);
-
+                Thread.Sleep(1000);
+                //I tried all waits in the "From" location case.So, I added this Thread.Sleep(1000);
 
                 string? toInput = excelData?.ToInput;
-                /*Console.WriteLine($"To Input: {toInput}");
-                searchBusPage.ClickOnToInput();
-                Thread.Sleep(3000);*/
-
                 searchBusPage.ClickToInputText(toInput);
+                Thread.Sleep(1000);
                 Log.Information("Clicked To input box and entered To input");
-                Thread.Sleep(3000);
                 searchBusPage.ClickOnSelectToInput();
+                Thread.Sleep(2000);
                 Log.Information("Selected particular entered city from the drop down");
-                Thread.Sleep(5000);
+                //I tried all waits in the "To" location case.So, I added this Thread.Sleep(1000);
 
                 string? date = excelData.Date;
                 Console.WriteLine($"date: {date}");
                 searchBusPage.ClickGetDate(date);
                 Log.Information("Selected particular date");
-                Thread.Sleep(5000);
-                
+               
 
                 var displayBusListsFilterPage = searchBusPage.ClickSearchButton();
                 Log.Information("Clicked on Search button");
-                Thread.Sleep(5000);
-
                 displayBusListsFilterPage.ClickAC();
                 Log.Information("Clicked AC");
                 displayBusListsFilterPage.ClickSeatType();
                 Log.Information("Clicked Sleeper Seat");
                 displayBusListsFilterPage.ClickSelectSeatButton();
                 Log.Information("Clicked Seat Button");
-                Thread.Sleep(5000);
+                
                 string? seatposition = excelData.SeatPosition;
                 Console.WriteLine($"Seat position: {seatposition}");
                 ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[1]/div")));
@@ -108,23 +100,19 @@ namespace MakeMyTripBus.TestScripts
                     Console.WriteLine("Particular seat not available");
                     driver.Close();
                 }
-                Thread.Sleep(5000);
                 ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]")));
                 displayBusListsFilterPage.ClickPickUpPoint();
                 Log.Information("Selected pick up point");
-                Thread.Sleep(5000);
+                
                 ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]")));
                 displayBusListsFilterPage.ClickDropPoint();
                 Log.Information("Selected drop point");
-                Thread.Sleep(5000);
 
                 ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[3]")));
-                Thread.Sleep(5000);
                 var passengerDetailsPage = displayBusListsFilterPage.ClickContinueButton();
                 Log.Information("Clicked on Continue button");
-                Thread.Sleep(5000);
+                
                 string? sheetName1 = "PassengerDetails";
-
                 passengerDataList = PassengerUtils.ReadExcelData(excelFilePath, sheetName1);
 
                 foreach (var excelData1 in passengerDataList)
@@ -139,15 +127,12 @@ namespace MakeMyTripBus.TestScripts
                     passengerDetailsPage.ClickAgeInput(age);
                     Log.Information("Entered passenger age");
 
-
                     passengerDetailsPage.ClickGender();
                     Log.Information("Selected passenger gender");
                     passengerDetailsPage.ClickStateDropDown();
                     Log.Information("Clicked State dropdown");
-                    Thread.Sleep(5000);
                     passengerDetailsPage.ClickParticularState();
                     Log.Information("Selected state from the dropdown");
-                    Thread.Sleep(5000);
                     passengerDetailsPage.ClickConfirmAndSaveCheckBox();
                     Log.Information("Clicked Confirm and Save checkbox");
 
@@ -156,32 +141,26 @@ namespace MakeMyTripBus.TestScripts
                     passengerDetailsPage.ClickEmailInput(email);
                     Log.Information("Entered passenger email");
 
-
                     string? mobilenumber = excelData1?.MobileNumber;
                     Console.WriteLine($"Mobile Number: {mobilenumber}");
                     passengerDetailsPage.ClickMobileNumberInput(mobilenumber);
                     Log.Information("Entered passenger Mobile number");
-
 
                     passengerDetailsPage.ClickSecureTripCheckbox();
                     Log.Information("Clicked Secure trip checkbox");
 
                     var paymentPage = passengerDetailsPage.ClickContinueButton();
                     Log.Information("Clicked Continue button");
-                    Thread.Sleep(7000);
                     paymentPage.ClickUpiOption();
                     Log.Information("Clicked UPI option");
-                    Thread.Sleep(5000);
 
                     string? upiId = excelData1?.UpiId;
                     Console.WriteLine($"Upi Id: {upiId}");
                     paymentPage.ClickUpiIdInput(upiId);
                     Log.Information("Entered UPI id");
-                    Thread.Sleep(5000);
 
                     paymentPage.ClickVerifyAndPayButton();
                     Log.Information("Clicked Verify and Pay Button");
-                    Thread.Sleep(5000);
                     paymentPage.ClickCancelButton();
                     Log.Information("Clicked Cancel Button");
                 }

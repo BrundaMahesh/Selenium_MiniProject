@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +27,6 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "(//span[starts-with(@class,'sr_city')])[1]\r\n")]
         public IWebElement? SelectFromInputText { get; set; }
 
-        
-
-
-        [FindsBy(How = How.Id, Using = "toCity")]
-        public IWebElement? ToInput { get; set; }
-
         [FindsBy(How = How.XPath, Using = "//input[@title='To']")]
         public IWebElement? ToInputText { get; set; }
 
@@ -55,6 +51,7 @@ namespace MakeMyTripBus.PageObjects
 
         public void ClickFromInput(string fromLoc)
         {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             FromInputText?.SendKeys(fromLoc);
             FromInputText?.SendKeys(Keys.Enter);
         }
@@ -65,24 +62,19 @@ namespace MakeMyTripBus.PageObjects
         }
         public void ClickOnFromInput()
         {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             FromInput?.Click();
         }
-
-
-        public void ClickOnToInput()
-        {
-            ToInput?.Click();
-        }
-
-        //span[contains(@class,'listingSprite')]
         public void ClickToInputText(string toLoc)
         {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             ToInputText?.SendKeys(toLoc);
             ToInputText?.SendKeys(Keys.Enter);
         }
 
         public void ClickOnSelectToInput()
         {
+
             SelectToInputText?.Click();
         }
         

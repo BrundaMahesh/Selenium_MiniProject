@@ -67,9 +67,9 @@ namespace MakeMyTripBus.TestScripts
             .CreateLogger();
 
             Log.Information("Trip Money order button check test started");
-            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a")));
+            ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a/span")));
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a")));
+            IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a/span")));
             IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
             executor.ExecuteScript("arguments[0].click();", element);
             Log.Information("Order Now button clicked");
