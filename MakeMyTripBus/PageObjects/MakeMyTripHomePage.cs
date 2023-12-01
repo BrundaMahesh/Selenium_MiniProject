@@ -50,8 +50,13 @@ namespace MakeMyTripBus.PageObjects
         }
         public BusPage ClickBusesOption()
         {
-           BusesOption?.Click();
-           return new BusPage(driver);
+            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+            fluentWait.Timeout = TimeSpan.FromSeconds(20);
+            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            fluentWait.Until(d => BusesOption.Displayed);
+            BusesOption?.Click();
+            return new BusPage(driver);
         }
         public CareersOptionPage ClickCareersOption()
         {

@@ -40,11 +40,11 @@ namespace MakeMyTripBus.TestScripts
             }
         }
 
-       // [Ignore("other")]
+       [Ignore("other")]
         [Test, Order(3), Category("Smoke Testing")]
         public void AllLinksStatusTest()
         {
-            List<IWebElement> allLinks = driver.FindElements(By.TagName("nav")).ToList();
+            List<IWebElement> allLinks = driver.FindElements(By.TagName("a")).ToList();
             foreach (var link in allLinks)
             {
                 string url = link.GetAttribute("href");
