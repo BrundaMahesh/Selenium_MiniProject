@@ -128,7 +128,8 @@ namespace MakeMyTripBus.TestScripts
             .CreateLogger();
             MakeMyTripHomePage makeMyTripHomePage = new MakeMyTripHomePage(driver);
             
-             makeMyTripHomePage.ClickLoginButton();
+            makeMyTripHomePage.ClickLoginButton();
+            
 
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string? excelFilePath = currDir + "/TestData/InputData.xlsx";
@@ -144,6 +145,7 @@ namespace MakeMyTripBus.TestScripts
                 Log.Information("Entered mobile number");
             }
             makeMyTripHomePage.ClickContinueButton();
+            Thread.Sleep(5000);
             try
             {
                 IWebElement error = driver.FindElement(By.XPath("//span[text()='Invalid phone number']"));

@@ -34,10 +34,10 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "//p[@data-cy='LoginHeaderText']")]
         public IWebElement? LoginButton { get; set; }
 
-        [FindsBy(How = How.Id, Using = "username")]
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"username\"]")]
         public IWebElement? LoginInput { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//button[@class='capText font16']")]
+        [FindsBy(How = How.XPath, Using = "//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div/section/form/div[2]/button")]
         public IWebElement? ContinueButton { get; set; }
         //Act
         public void ClickSignInPopup()
@@ -74,15 +74,28 @@ namespace MakeMyTripBus.PageObjects
 
         public void ClickLoginButton()
         {
+            
             LoginButton?.Click();
         }
         public void ClickLoginInput(string number)
         {
+            //DefaultWait<IWebDriver?> fluentWait = new DefaultWait<IWebDriver?>(driver);
+            //fluentWait.Timeout = TimeSpan.FromSeconds(50);
+            //fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            //fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            //fluentWait.Until(d => LoginInput?.Displayed);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", LoginInput);
             LoginInput?.SendKeys(number);
             LoginInput?.SendKeys(Keys.Enter);
         }
         public void ClickContinueButton()
         {
+            //DefaultWait<IWebDriver?> fluentWait = new DefaultWait<IWebDriver?>(driver);
+            //fluentWait.Timeout = TimeSpan.FromSeconds(10);
+            //fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            //fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            //fluentWait.Until(d => ContinueButton?.Displayed);
+            //((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", ContinueButton);
             ContinueButton?.Click();
         }
 
