@@ -17,7 +17,7 @@ namespace MakeMyTripBus.TestScripts
     internal class MakeMyTripTripMoneyHomePageTests:CoreCodes
     {
         
-        [Test,Order(1),Category("Smoke Testing")]
+        [Test,Order(1),Category("End to End Testing")]
         public void MakeMyTriptripMoneyCheck()
         {
             string? currdir = Directory.GetParent(@"../../../")?.FullName;
@@ -73,10 +73,13 @@ namespace MakeMyTripBus.TestScripts
             Thread.Sleep(5000);
             Log.Information("Careers page loaded");
             CareersPage careersPage = new CareersPage(driver);
-            var careersJobPage=careersPage.ClickJobButton();
+            IWebElement? JobButton = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div/div[1]/div[2]/div/div[2]/div[2]/div[6]/a"));
+            executor?.ExecuteScript("arguments[0].click();", JobButton);
+            //var careersJobPage=careersPage.ClickJobButton();
             Log.Information("Clicked Job Button");
             Log.Information("Careers Job page loaded");
 
+            CareersJobPage careersJobPage = new CareersJobPage(driver);
             careersJobPage.ClickTechnologyOption();
             Log.Information("Clicked Technology Option");
             var backEndEngineerJavaPage=careersJobPage.ClickBackEndEngineerJavaCard();
