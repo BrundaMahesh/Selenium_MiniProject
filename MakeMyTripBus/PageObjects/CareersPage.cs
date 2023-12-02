@@ -16,16 +16,6 @@ namespace MakeMyTripBus.PageObjects
             this.driver = driver ?? throw new ArgumentException(nameof(driver));
             PageFactory.InitElements(driver, this);
         }
-
-        [FindsBy(How = How.XPath, Using = "//*[@id=\"__next\"]/div/div[1]/div[2]/div/div[2]/div[2]/div[6]/a")]
-        private IWebElement? JobButton { get; set; }
-
-        public CareersJobPage ClickJobButton()
-        {
-            JobButton?.Click();
-            return new CareersJobPage(driver);
-        }
-
         
     }
 }

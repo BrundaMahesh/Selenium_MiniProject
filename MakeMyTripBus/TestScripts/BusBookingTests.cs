@@ -44,7 +44,7 @@ namespace MakeMyTripBus.TestScripts
             IJavaScriptExecutor? executor = (IJavaScriptExecutor)driver;
             executor?.ExecuteScript("arguments[0].click();", element);
             Log.Information("Closed Sign in popup");
-            //homePage.ClickSignInPopup();
+            
 
             var searchBusPage = homePage.ClickBusesOption();
             Log.Information("Bus Option clicked");
