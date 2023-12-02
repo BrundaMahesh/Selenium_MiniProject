@@ -1,0 +1,10 @@
+2023-12-02 16:56:30.629 +05:30 [INF] Make my trip logo check test started
+2023-12-02 16:56:30.986 +05:30 [INF] Closed Sign in popup
+2023-12-02 16:56:33.262 +05:30 [INF] Make my trip logo clicked
+2023-12-02 16:56:33.519 +05:30 [INF] Test passed for Make my trip logo Clicking
+2023-12-02 16:56:34.291 +05:30 [INF] AboutUs Option visible
+2023-12-02 16:56:34.465 +05:30 [INF] Investor Option visible
+2023-12-02 16:56:34.466 +05:30 [INF] Careers Page test started
+2023-12-02 16:56:40.772 +05:30 [INF] Clicked Careers option
+2023-12-02 16:56:40.772 +05:30 [INF] Careers page loaded
+2023-12-02 16:56:41.170 +05:30 [INF] Test passed for careers page

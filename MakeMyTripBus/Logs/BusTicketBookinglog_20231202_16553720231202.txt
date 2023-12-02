@@ -1,0 +1,32 @@
+2023-12-02 16:55:37.606 +05:30 [INF] User bus ticket booking test started
+2023-12-02 16:55:37.835 +05:30 [INF] Closed Sign in popup
+2023-12-02 16:55:38.132 +05:30 [INF] Bus Option clicked
+2023-12-02 16:55:38.583 +05:30 [INF] Clicked from input box
+2023-12-02 16:55:42.170 +05:30 [INF] Entered from input
+2023-12-02 16:55:42.370 +05:30 [INF] Selected particular entered city from the drop down
+2023-12-02 16:55:48.522 +05:30 [INF] Clicked To input box and entered To input
+2023-12-02 16:55:53.666 +05:30 [INF] Selected particular entered city from the drop down
+2023-12-02 16:55:53.773 +05:30 [INF] Selected particular date
+2023-12-02 16:55:58.006 +05:30 [INF] Clicked on Search button
+2023-12-02 16:55:58.297 +05:30 [INF] Clicked AC
+2023-12-02 16:55:58.695 +05:30 [INF] Clicked Sleeper Seat
+2023-12-02 16:55:59.177 +05:30 [INF] Clicked Seat Button
+2023-12-02 16:56:00.712 +05:30 [INF] Selected particular seat
+2023-12-02 16:56:00.998 +05:30 [INF] Selected pick up point
+2023-12-02 16:56:01.243 +05:30 [INF] Selected drop point
+2023-12-02 16:56:01.655 +05:30 [INF] Clicked on Continue button
+2023-12-02 16:56:01.953 +05:30 [INF] Entered passenger name
+2023-12-02 16:56:02.303 +05:30 [INF] Entered passenger age
+2023-12-02 16:56:02.495 +05:30 [INF] Selected passenger gender
+2023-12-02 16:56:02.613 +05:30 [INF] Clicked State dropdown
+2023-12-02 16:56:02.686 +05:30 [INF] Selected state from the dropdown
+2023-12-02 16:56:02.747 +05:30 [INF] Clicked Confirm and Save checkbox
+2023-12-02 16:56:03.349 +05:30 [INF] Entered passenger email
+2023-12-02 16:56:03.820 +05:30 [INF] Entered passenger Mobile number
+2023-12-02 16:56:04.052 +05:30 [INF] Clicked Secure trip checkbox
+2023-12-02 16:56:04.367 +05:30 [INF] Clicked Continue button
+2023-12-02 16:56:16.516 +05:30 [INF] Clicked UPI option
+2023-12-02 16:56:16.835 +05:30 [INF] Entered UPI id
+2023-12-02 16:56:17.013 +05:30 [INF] Clicked Verify and Pay Button
+2023-12-02 16:56:20.789 +05:30 [INF] Clicked Cancel Button
+2023-12-02 16:56:20.988 +05:30 [INF] Test passed for Bus Ticket Booking
