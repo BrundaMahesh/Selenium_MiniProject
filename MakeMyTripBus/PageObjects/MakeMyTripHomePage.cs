@@ -26,6 +26,7 @@ namespace MakeMyTripBus.PageObjects
         private IWebElement? LogoCheck { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//li[@class='menu_Buses']")]
+        [CacheLookup]
         private IWebElement? BusesOption { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/footer/div[1]/div/ul[2]/li[3]/a")]

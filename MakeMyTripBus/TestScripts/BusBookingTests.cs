@@ -104,6 +104,7 @@ namespace MakeMyTripBus.TestScripts
                 {
                     Console.WriteLine("Particular seat not available");
                     driver.Close();
+                    break;
                 }
                 ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]")));
                 displayBusListsFilterPage.ClickPickUpPoint();
