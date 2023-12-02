@@ -17,7 +17,7 @@ namespace MakeMyTripBus.TestScripts
     internal class MakeMyTripCareersHomePageTests:CoreCodes
     {
         
-        [Test,Order(1),Category("End to End Testing")]
+        [Test,Order(1),Category("Smoke Testing")]
         public void MakeMyTripCareersHomePageCheck()
         {
             string? currdir = Directory.GetParent(@"../../../")?.FullName;
