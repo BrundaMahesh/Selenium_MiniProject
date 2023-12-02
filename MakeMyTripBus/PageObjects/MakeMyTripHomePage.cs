@@ -31,7 +31,6 @@ namespace MakeMyTripBus.PageObjects
         [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/footer/div[1]/div/ul[2]/li[3]/a")]
         private IWebElement? CareersOption { get; set; }
 
-        
 
         //Act
         public void ClickSignInPopup()
@@ -53,9 +52,7 @@ namespace MakeMyTripBus.PageObjects
         {
             BusesOption?.Click();
             return new BusPage(driver);
-        }
-        
-        
+        }  
        public CareersPage ClickCareersOption()
        {
             CareersOption?.Click();

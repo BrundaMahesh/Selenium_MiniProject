@@ -55,7 +55,6 @@ namespace MakeMyTripBus.PageObjects
             FromInputText?.SendKeys(fromLoc);
             FromInputText?.SendKeys(Keys.Enter);
         }
-
         public void ClickOnSelectFromInput()
         {
             SelectFromInputText?.Click();
@@ -71,13 +70,11 @@ namespace MakeMyTripBus.PageObjects
             ToInputText?.SendKeys(toLoc);
             ToInputText?.SendKeys(Keys.Enter);
         }
-
         public void ClickOnSelectToInput()
         {
 
             SelectToInputText?.Click();
-        }
-        
+        } 
         public DisplayBusListsFilterPage ClickSearchButton()
         {
             SearchButton?.Click();
