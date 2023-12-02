@@ -78,13 +78,13 @@ namespace MakeMyTripBus.TestScripts
                 TakeScreenShot();
                 Assert.That(driver.Url.Contains("careers"));
                 Log.Information("Test passed for careers page");
-                test = extent.CreateTest("Trip Careers Page");
+                test = extent.CreateTest("Make My Trip Careers Page");
                 test.Pass("Careers page Loaded Successfully");
             }
             catch (AssertionException ex)
             {
                 Log.Error($"Test failed for Careers Page. \n Exception: {ex.Message}");
-                test = extent.CreateTest("Trip Careers Page");
+                test = extent.CreateTest("Make My Trip Careers Page");
                 test.Fail("Careers page Loaded Successfully");
             }
 
