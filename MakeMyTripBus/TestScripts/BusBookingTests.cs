@@ -39,7 +39,12 @@ namespace MakeMyTripBus.TestScripts
                 driver.Navigate().GoToUrl("https://www.makemytrip.com/");
             }
             Log.Information("User bus ticket booking test started");
-            homePage.ClickSignInPopup();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            IWebElement? element = driver.FindElement(By.XPath("//*[@id=\"SW\"]/div[1]/div[2]/div[2]/div"));
+            IJavaScriptExecutor? executor = (IJavaScriptExecutor)driver;
+            executor?.ExecuteScript("arguments[0].click();", element);
+            Log.Information("Closed Sign in popup");
+            //homePage.ClickSignInPopup();
 
             var searchBusPage = homePage.ClickBusesOption();
             Log.Information("Bus Option clicked");
@@ -72,7 +77,7 @@ namespace MakeMyTripBus.TestScripts
                 Log.Information("Selected particular entered city from the drop down");
                 //I tried all waits in the "To" location case it's not working.So, I added this Thread.Sleep(1000);
 
-                string? date = excelData.Date;
+                string? date = excelData?.Date;
                 Console.WriteLine($"date: {date}");
                 searchBusPage.ClickGetDate(date);
                 Log.Information("Selected particular date");
@@ -151,9 +156,11 @@ namespace MakeMyTripBus.TestScripts
 
                     var paymentPage = passengerDetailsPage.ClickContinueButton();
                     Log.Information("Clicked Continue button");
-                    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(100));
-                    IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[starts-with(@class,'payment__option__title font12')]/span[text()='UPI Options']")));
+                    
+                    Thread.Sleep(8000);
+                    //I tried all waits here but not working.
                     paymentPage.ClickUpiOption();
+                    
                     Log.Information("Clicked UPI option");
 
                     string? upiId = excelData1?.UpiId;

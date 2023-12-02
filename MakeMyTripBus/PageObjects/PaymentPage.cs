@@ -19,16 +19,16 @@ namespace MakeMyTripBus.PageObjects
             PageFactory.InitElements(driver, this);
         }
         [FindsBy(How = How.XPath, Using = "//div[starts-with(@class,'payment__option__title font12')]/span[text()='UPI Options']")]
-        public IWebElement? UpiOption { get; set; }
+        private IWebElement? UpiOption { get; set; }
 
         [FindsBy(How = How.Id, Using = "inputVpa")]
-        public IWebElement? UpiIdInput { get; set; }
+        private IWebElement? UpiIdInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[1]/main/div[1]/div[3]/div[2]/div[1]/div[1]/div/div/button")]
-        public IWebElement? VerifyAndPayButton { get; set; }
+        private IWebElement? VerifyAndPayButton { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div/div[2]/div/div[2]/button")]
-        public IWebElement? CancelButton { get; set; }
+        private IWebElement? CancelButton { get; set; }
 
         public void ClickUpiOption()
         {

@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 namespace MakeMyTripBus.TestScripts
 {
     [TestFixture]
-    internal class MakeMyTripTripMoneyHomePageTests:CoreCodes
+    internal class MakeMyTripCareersHomePageTests:CoreCodes
     {
         
         [Test,Order(1),Category("End to End Testing")]
-        public void MakeMyTriptripMoneyCheck()
+        public void MakeMyTripCareersHomePageCheck()
         {
             string? currdir = Directory.GetParent(@"../../../")?.FullName;
-            string? logfilepath = currdir + "/Logs/TripMoneylog_" +
+            string? logfilepath = currdir + "/Logs/Careerslog_" +
                 DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
 
             Log.Logger = new LoggerConfiguration()
@@ -54,53 +54,45 @@ namespace MakeMyTripBus.TestScripts
             }
         
 
-            Log.Information("Trip Money Page test started");
+            Log.Information("Careers Page test started");
             Thread.Sleep(3000);
-            CoreCodes.ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"root\"]/div/div[2]/div/main/main/div[8]/div/a/span")));
-            var tripMoneyPage=homePage.ClickOrderNowButton();
-            Log.Information("Clicked OrderNow Button");
-            Log.Information("Trip Money page loaded");
-
-            var tripMoneyAboutUsPage=tripMoneyPage.ClickAboutUsLink();
-            Log.Information("Clicked About Us Link");
-            Thread.Sleep(3000);
-            IWebElement? ExploreAll = driver.FindElement(By.XPath("//*[@id=\"aboutUsWrapper\"]/section[7]/div/div/a"));
-            executor?.ExecuteScript("arguments[0].click();", ExploreAll);
-            Log.Information("Clicked Explore All Oppurtunity Button");
-
-            List<string> nextwindow = driver.WindowHandles.ToList();
-            driver.SwitchTo().Window(nextwindow[1]);
-            Thread.Sleep(5000);
+            CoreCodes.ScrollIntoView(driver, driver.FindElement(By.XPath("//*[@id=\"root\"]/div/footer/div[1]/div/ul[2]/li[3]/a")));
+            IWebElement? CareersOption = driver.FindElement(By.XPath("//*[@id=\"root\"]/div/footer/div[1]/div/ul[2]/li[3]/a"));
+            executor?.ExecuteScript("arguments[0].click();", CareersOption);
+            Log.Information("Clicked Careers option");
             Log.Information("Careers page loaded");
-            CareersPage careersPage = new CareersPage(driver);
+
+            //CareersPage careersPage = new CareersPage(driver);
+            Thread.Sleep(1000);
             IWebElement? JobButton = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div/div[1]/div[2]/div/div[2]/div[2]/div[6]/a"));
             executor?.ExecuteScript("arguments[0].click();", JobButton);
-            //var careersJobPage=careersPage.ClickJobButton();
+            //var careersJobPage = careersPage.ClickJobButton();
             Log.Information("Clicked Job Button");
-            Log.Information("Careers Job page loaded");
+            //Thread.Sleep(2000);
+            Log.Information("Careers Jobpage loaded");
 
-            CareersJobPage careersJobPage = new CareersJobPage(driver);
-            careersJobPage.ClickTechnologyOption();
+
+            IWebElement? TechnologyOption = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div/section[2]/div[2]/div[1]"));
+            executor?.ExecuteScript("arguments[0].click();", TechnologyOption);
             Log.Information("Clicked Technology Option");
-            var backEndEngineerJavaPage=careersJobPage.ClickBackEndEngineerJavaCard();
-            Log.Information("Clicked BackEndEngineerJavaCard");
 
-            List<string> nextwindow1 = driver.WindowHandles.ToList();
-            driver.SwitchTo().Window(nextwindow[1]);
+            IWebElement? BackEnd = driver.FindElement(By.XPath("//*[@id=\"jobs-list\"]/div/a[1]/div/div/div[3]/span"));
+            executor?.ExecuteScript("arguments[0].click();", BackEnd);
+            Log.Information("Clicked BackEndEngineerJavaCard");
 
             try
             {
                 TakeScreenShot();
                 Assert.That(driver.Url.Contains("backend"));
-                Log.Information("Test passed for Trip Money page");
-                test = extent.CreateTest("Trip Money Page Loading");
-                test.Pass("Trip Money Page Loaded Successfully");
+                Log.Information("Test passed for careers page");
+                test = extent.CreateTest("Trip Careers Loading");
+                test.Pass("Careers page Loaded Successfully");
             }
             catch (AssertionException ex)
             {
-                Log.Error($"Test failed for Trip Money Page. \n Exception: {ex.Message}");
-                test = extent.CreateTest("Trip Money Page Loading");
-                test.Fail("Trip Money Page Loading failed");
+                Log.Error($"Test failed for Careers Page. \n Exception: {ex.Message}");
+                test = extent.CreateTest("Trip Careers Loading");
+                test.Fail("Careers page Loaded Successfully");
             }
 
         }

@@ -18,25 +18,25 @@ namespace MakeMyTripBus.PageObjects
         }
 
         [FindsBy(How = How.XPath, Using = "//div[@class='makeFlex']//child::span[text()='AC']")]
-        public IWebElement? AC { get; set; }
+        private IWebElement? AC { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@class='makeFlex']//child::span[text()='Sleeper']")]
-        public IWebElement? SeatType { get; set; }
+        private IWebElement? SeatType { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//div[@class='busListingContainer']//following::div[@class='busCardContainer '])[1]")]
-        public IWebElement? SelectSeatButton { get; set; }
+        private IWebElement? SelectSeatButton { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//div[@class='makeAbsolute']/div/li)[1]")]
-        public IWebElement? ParticularSeat { get; set; }
+        private IWebElement? ParticularSeat { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[1]/ul/li[1]")]
-        public IWebElement? PickUpPoint { get; set; }
+        private IWebElement? PickUpPoint { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[2]/div[2]/ul/li[1]")]
-        public IWebElement? DropPoint { get; set; }
+        private IWebElement? DropPoint { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"busList\"]/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/div[3]/div/div[2]")]
-        public IWebElement? ContinueButton { get; set; }
+        private IWebElement? ContinueButton { get; set; }
         public DisplayBusListsFilterPage ClickAC()
         {
             AC?.Click();

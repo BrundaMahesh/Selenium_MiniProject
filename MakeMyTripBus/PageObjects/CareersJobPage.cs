@@ -17,10 +17,10 @@ namespace MakeMyTripBus.PageObjects
             PageFactory.InitElements(driver, this);
         }
         [FindsBy(How = How.XPath, Using = "//*[@id=\"__next\"]/div/section[2]/div[2]/div[1]")]
-        public IWebElement? TechnologyOption { get; set; }
+        private IWebElement? TechnologyOption { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"jobs-list\"]/div/a[1]/div/div/div[3]/span")]
-        public IWebElement? BackEndEngineerJavaCard { get; set; }
+        private IWebElement? BackEndEngineerJavaCard { get; set; }
         public void ClickTechnologyOption()
         {
             TechnologyOption?.Click();
@@ -30,5 +30,7 @@ namespace MakeMyTripBus.PageObjects
             BackEndEngineerJavaCard?.Click();
             return new BackEndEngineerJavaPage(driver);
         }
+
+       
     }
 }

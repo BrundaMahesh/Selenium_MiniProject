@@ -18,12 +18,14 @@ namespace MakeMyTripBus.PageObjects
         }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"__next\"]/div/div[1]/div[2]/div/div[2]/div[2]/div[6]/a")]
-        public IWebElement? JobButton { get; set; }
+        private IWebElement? JobButton { get; set; }
 
         public CareersJobPage ClickJobButton()
         {
             JobButton?.Click();
             return new CareersJobPage(driver);
         }
+
+        
     }
 }

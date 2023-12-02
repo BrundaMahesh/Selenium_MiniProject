@@ -19,19 +19,19 @@ namespace MakeMyTripBus.PageObjects
             PageFactory.InitElements(driver, this);
         }
         [FindsBy(How = How.Id, Using = "fromCity")]
-        public IWebElement? FromInput { get; set; }
+        private IWebElement? FromInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//input[@title='From']")]
-        public IWebElement? FromInputText { get; set; }
+        private IWebElement? FromInputText { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//span[starts-with(@class,'sr_city')])[1]\r\n")]
-        public IWebElement? SelectFromInputText { get; set; }
+        private IWebElement? SelectFromInputText { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//input[@title='To']")]
-        public IWebElement? ToInputText { get; set; }
+        private IWebElement? ToInputText { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//span[starts-with(@class,'sr_city')])[1]")]
-        public IWebElement? SelectToInputText { get; set; }
+        private IWebElement? SelectToInputText { get; set; }
 
         IWebElement? GetDate(string date)
         {

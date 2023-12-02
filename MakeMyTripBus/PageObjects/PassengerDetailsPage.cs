@@ -17,34 +17,34 @@ namespace MakeMyTripBus.PageObjects
             PageFactory.InitElements(driver, this);
         }
         [FindsBy(How = How.Id, Using = "fname")]
-        public IWebElement? NameInput { get; set; }
+        private IWebElement? NameInput { get; set; }
 
         [FindsBy(How = How.Id, Using = "age")]
-        public IWebElement? AgeInput { get; set; }
+        private IWebElement? AgeInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//div[@class='genderTab makeFlex']//child::span)[1]")]
-        public IWebElement? Gender { get; set; }
+        private IWebElement? Gender { get; set; }
 
         [FindsBy(How = How.ClassName, Using = "dropdownFieldWpr__inputWpr")]
-        public IWebElement? StateDropDown { get; set; }
+        private IWebElement? StateDropDown { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//*[@class='dropdownListWpr'])/li[1]")]
-        public IWebElement? ParticularState { get; set; }
+        private IWebElement? ParticularState { get; set; }
 
         [FindsBy(How = How.ClassName, Using = "checkboxWithLblWpr__label")]
-        public IWebElement? ConfirmAndSaveCheckBox{ get; set; }
+        private IWebElement? ConfirmAndSaveCheckBox{ get; set; }
 
         [FindsBy(How = How.Id, Using = "contactEmail")]
-        public IWebElement? EmailInput { get; set; }
+        private IWebElement? EmailInput { get; set; }
 
         [FindsBy(How = How.Id, Using = "mobileNumber")]
-        public IWebElement? MobileNumberInput { get; set; }
+        private IWebElement? MobileNumberInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div[4]/div/section[1]/div[5]/div/div[1]/label/span")]
-        public IWebElement? SecureTripCheckbox { get; set; }
+        private IWebElement? SecureTripCheckbox { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id=\"root\"]/div[4]/div/section[2]/div[3]/div[2]/div")]
-        public IWebElement? ContinueButton { get; set; }
+        private IWebElement? ContinueButton { get; set; }
         public void ClickNameInput(string name)
         {
             NameInput?.SendKeys(name);
